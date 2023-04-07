@@ -1,0 +1,316 @@
+<div class="container-fluid">
+    <div class="form-container">
+        <div class="row confirm-heading-container">
+            <div class="col col-12">
+                <h2 class="text-center heading-container">FAHASA</h2>
+            </div>
+        </div>
+        <div class="content-container shadow">
+            <div class="row">
+                <!-- FORM FIELDS START -->
+                <div class="col col-12 col-sm-5">
+                    <div
+                        class="info-container row justify-content-center"
+                        [formGroup]="form"
+                    >
+                        <div class="col col-6">
+                            <label>Chọn thể loại sách</label>
+                            <div class="input-group">
+                                <mat-form-field>
+                                    <mat-select
+                                        placeholder="Chọn thể loại"
+                                        [value]="formValues.categoryId"
+                                        formControlName="categoryId"
+                                    >
+                                        <mat-option
+                                            *ngFor="
+                                                let category of categoryOptions
+                                            "
+                                            [value]="category.id"
+                                        >
+                                            {{ category.name }}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error
+                                        [@headshake]="headshake"
+                                        *ngIf="
+                                            submitted &&
+                                            formControls['categoryId'].errors
+                                        "
+                                        class="invalid-feedback"
+                                    >
+                                        Thể loại không được trống
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form-group col col-6">
+                            <label>Ngày xuất Bản</label>
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    formControlName="namXB"
+                                    class="form-control"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            submitted &&
+                                            formControls['namXB'].errors
+                                    }"
+                                    matInput
+                                    [matDatepicker]="picker"
+                                    readonly
+                                />
+                                <mat-datepicker-toggle
+                                    matIconSuffix
+                                    [for]="picker"
+                                ></mat-datepicker-toggle>
+                                <div
+                                    *ngIf="
+                                        submitted &&
+                                        formControls['namXB'].errors
+                                    "
+                                    class="invalid-feedback"
+                                >
+                                    <div *ngIf="formControls['namXB'].errors">
+                                        Ngày xuất bản không được trống
+                                    </div>
+                                </div>
+
+                                <mat-datepicker #picker></mat-datepicker>
+                            </div>
+                        </div>
+                        <div class="form-group col col-6">
+                            <label>Tên Sách</label>
+                            <input
+                                type="text"
+                                formControlName="ten"
+                                class="form-control"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        submitted && formControls['ten'].errors
+                                }"
+                            />
+                            <div
+                                *ngIf="submitted && formControls['ten'].errors"
+                                class="invalid-feedback"
+                            >
+                                <div
+                                    [@headshake]="headshake"
+                                    *ngIf="
+                                        formControls['ten'].errors['required']
+                                    "
+                                >
+                                    Tên không được trống
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col col-6">
+                            <label>Tên tác giả</label>
+                            <input
+                                type="text"
+                                formControlName="tacGia"
+                                class="form-control"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        submitted &&
+                                        formControls['tacGia'].errors
+                                }"
+                            />
+                            <div
+                                *ngIf="
+                                    submitted && formControls['tacGia'].errors
+                                "
+                                class="invalid-feedback"
+                            >
+                                <div
+                                    [@headshake]="headshake"
+                                    *ngIf="
+                                        formControls['tacGia'].errors[
+                                            'required'
+                                        ]
+                                    "
+                                >
+                                    Tên tác giả không được trống
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col col-12">
+                            <label>Mô tả</label>
+                            <input
+                                type="text"
+                                formControlName="mota"
+                                class="form-control"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        submitted && formControls['mota'].errors
+                                }"
+                            />
+                            <div
+                                *ngIf="submitted && formControls['mota'].errors"
+                                class="invalid-feedback"
+                            >
+                                <div
+                                    [@headshake]="headshake"
+                                    *ngIf="
+                                        formControls['mota'].errors['required']
+                                    "
+                                >
+                                    Mô tả không được trống
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col col-6">
+                            <label>Link ảnh</label>
+                            <input
+                                (change)="onChangeImage($event)"
+                                type="text"
+                                formControlName="image"
+                                class="form-control"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        submitted &&
+                                        formControls['image'].errors
+                                }"
+                            />
+                            <div
+                                *ngIf="
+                                    submitted && formControls['image'].errors
+                                "
+                                class="invalid-feedback"
+                            >
+                                <div
+                                    [@headshake]="headshake"
+                                    *ngIf="formControls['image'].errors"
+                                >
+                                    Link ảnh không hợp lệ
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            *ngIf="
+                                formValues.image &&
+                                !formControls['image'].errors
+                            "
+                            class="col col-6 shadow rounded"
+                        >
+                            <img class="w-100 h-100" [src]="formValues.image" />
+                        </div>
+                    </div>
+                </div>
+                <!-- FORM FIELDS END -->
+
+                <!-- BOOK ITEM START -->
+                <div class="col col-12 col-sm-7 book-item-container">
+                    <h3 class="col col-12">Quyển Sách</h3>
+                    <!-- CONTROLLER STARTS -->
+                    <div
+                        *ngIf="data.type != 'view'"
+                        class="row align-items-center p-2"
+                    >
+                        <div class="form-check col-3">
+                            <p class="m-0 mb-2">Trạng thái</p>
+                            <input
+                                [ngModel]="borrowed"
+                                (ngModelChange)="onCheck($event)"
+                                class="form-check-input"
+                                type="checkbox"
+                                id="borrowed"
+                            />
+                            <label class="form-check-label" for="borrowed">
+                                Đang mượn
+                            </label>
+                        </div>
+                        <div class="form-group col col-3">
+                            <label>Số lần mượn</label>
+                            <input
+                                min="0"
+                                [ngModel]="numberBorrowed"
+                                type="number"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="col col-4">
+                            <label>Tình Trạng</label>
+                            <select
+                                [value]="status"
+                                [ngModel]="status"
+                                (ngModelChange)="onSelectChange($event)"
+                                class="form-select"
+                            >
+                                <option
+                                    [value]="enum.key"
+                                    *ngFor="
+                                        let enum of tinhTrangEnum | keyvalue
+                                    "
+                                >
+                                    {{ enum.value }}
+                                </option>
+                            </select>
+                        </div>
+                        <button
+                            (click)="addBookItem()"
+                            class="btn btn-primary col col-2"
+                        >
+                            Thêm
+                        </button>
+                    </div>
+                    <!-- CONTROLLER END -->
+
+                    <!-- TABLE STARTS -->
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center">Trạng thái</td>
+                                        <td class="text-center">Số lần mượn</td>
+                                        <td class="text-center">Tình trạng</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="
+                                            let row of bookItemsTable;
+                                            let i = index
+                                        "
+                                    >
+                                        <td class="text-center">
+                                            {{
+                                                row.trangThai
+                                                    ? 'Có sẵn'
+                                                    : 'Đang mượn'
+                                            }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ row.soLanMuon }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ tinhTrangEnum[row.tinhTrang] }}
+                                        </td>
+                                        <td>
+                                            <button
+                                                (click)="removeBookItem(i)"
+                                                class="btn btn-danger"
+                                            >
+                                                Xóa
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- TABLE ENDS -->
+                </div>
+                <!-- BOOK ITEM END -->
+            </div>
+            <div *ngIf="data.type != 'view'" class="row justify-content-end">
+                <button (click)="submit()" class="col col-2 btn btn-secondary">
+                    Lưu
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

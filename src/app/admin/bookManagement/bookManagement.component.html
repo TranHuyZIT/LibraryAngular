@@ -1,0 +1,49 @@
+<header-nav></header-nav>
+<div class="container-lg book-mgmt-container">
+    <!-- TAB BAR START -->
+    <div class="row">
+        <ul class="nav nav-tabs col col-12 row">
+            <li class="nav-item col-3">
+                <div
+                    href=""
+                    class="nav-link"
+                    (click)="onTabSelect('book')"
+                    [ngClass]="{ active: activeTab === 'book' }"
+                    aria-current="page"
+                >
+                    Đầu Sách
+                </div>
+            </li>
+            <li class="nav-item col-3">
+                <div
+                    href=""
+                    class="nav-link"
+                    (click)="onTabSelect('bookItem')"
+                    [ngClass]="{ active: activeTab === 'bookItem' }"
+                >
+                    Quyển Sách
+                </div>
+            </li>
+            <li class="nav-item col-3">
+                <div
+                    href=""
+                    class="nav-link"
+                    (click)="onTabSelect('category')"
+                    [ngClass]="{ active: activeTab === 'category' }"
+                >
+                    Thể loại sách
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- TAB BAR END -->
+
+    <!-- TAB CONTENTS START -->
+    <ng-container *ngIf="activeTab === 'book'">
+        <book-component></book-component>
+    </ng-container>
+    <ng-container *ngIf="activeTab === 'category'">
+        <category-component></category-component>
+    </ng-container>
+    <!-- TAB CONTENTS END -->
+</div>

@@ -1,0 +1,94 @@
+<div class="row mt-5 justify-content-end">
+    <button class="col col-1 btn btn-secondary me-2">Trang chủ</button>
+    <button (click)="add()" class="col col-1 btn btn-primary">Thêm</button>
+</div>
+<div class="row shadow rounded">
+    <!-- FILTER START -->
+    <div class="col col-3 filter-container shadow rounded">
+        <div class="category-filter-container">
+            <h4><em>Thể Loại Sách</em></h4>
+            <div class="row gy-3 px-4 py-2">
+                <div *ngFor="let category of categoryOptions" class="col col-6">
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            [value]="category.id"
+                            [(ngModel)]="category.checked"
+                            (ngModelChange)="handleCheck($event)"
+                            [id]="'checkbox' + category.id"
+                        />
+                        <label
+                            class="form-check-label"
+                            [for]="'checkbox' + category.id"
+                        >
+                            {{ category.name }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FILTER END -->
+
+    <!-- BOOK LIST START -->
+    <div class="col col-9 px-4 py-2 books-list-container">
+        <!-- SEARCH START -->
+        <div class="row">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3"
+                        ><em>Tìm sách</em></span
+                    >
+                </div>
+                <input
+                    (ngModelChange)="handleSearch($event)"
+                    [(ngModel)]="searchTerm"
+                    type="text"
+                    class="form-control"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                />
+            </div>
+        </div>
+        <!-- SEARCH END -->
+
+        <!-- LIST START -->
+        <div class="row">
+            <div *ngIf="booksList.length == 0" class="col col-12">
+                Không có sách phù hợp
+            </div>
+            <div *ngFor="let book of booksList" class="col col-3">
+                <div [@bounce]="bounce" class="card">
+                    <img [src]="book.image" class="card-img-top" alt="..." />
+                    <div
+                        (click)="selectCard(book.id, 'view')"
+                        class="card-body"
+                    >
+                        <h5 class="card-title text-truncate">{{ book.ten }}</h5>
+                        <div class="card-text">
+                            <p>
+                                <em class="text-truncate-multi">{{
+                                    book.mota
+                                }}</em>
+                            </p>
+                        </div>
+                        <button
+                            href="#"
+                            (click)="
+                                selectCard(book.id, 'update');
+                                $event.stopPropagation()
+                            "
+                            class="btn btn-primary"
+                        >
+                            Sửa
+                        </button>
+                        <button class="btn btn-danger ms-2">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LIST END -->
+    </div>
+    <!-- BOOK LIST END -->
+</div>

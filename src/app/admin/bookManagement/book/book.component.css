@@ -1,0 +1,35 @@
+/* FILTER START */
+.filter-container {
+    padding: 12px;
+}
+
+/* FILTER END */
+
+/* BOOKS LIST START */
+.card {
+    cursor: pointer;
+}
+.books-list-container {
+    padding: 12px;
+}
+.card-img-top {
+    max-width: 100%;
+    max-height: 100%;
+    width: 200px !important;
+    height: 120px !important;
+    object-fit: cover;
+    margin: auto;
+}
+.card-text {
+    overflow: hidden;
+}
+.text-truncate-multi {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.form-check-label {
+    color: var(--bs-secondary);
+}
