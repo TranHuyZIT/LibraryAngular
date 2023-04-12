@@ -1,1 +1,50 @@
-<p>category works</p>
+<div class="row mt-5 justify-content-end">
+    <button class="col col-1 btn btn-secondary me-2">Trang chủ</button>
+    <button (click)="add()" class="col col-1 btn btn-primary">Thêm</button>
+</div>
+<div class="row shadow rounded">
+    <div class="category-filter-container">
+        <h4 class="category-title">Thể loại sách</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="category-head"><b>Tên thể loại</b></td>
+                        <td class="category-head"><b>Mô tả</b></td>
+                        <td class="text-center category-head"><b>Thao tác</b></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categoryList">
+                        <td>
+                            <div class="card-title text-truncate">{{ category.name }}</div>
+                        </td>
+                        <td>
+                            <p>
+                                <em class="text-truncate-multi">{{
+                                    category.description
+                                }}</em>
+                            </p>
+                        </td>
+                        <td>
+                            <div
+                                class="action-box d-flex justify-content-center"
+                            >
+                                <button class="btn btn-primary me-2"
+                                href="#"
+                                (click)="
+                                    selectCard(category.id, 'update');
+                                    $event.stopPropagation()
+                                ">
+                                    Sửa
+                                </button>
+                                <button class="btn btn-danger">Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-body"></div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryComponent } from './category/category.component';
+import { CategoryFormComponent } from './category/categoryForm/categoryForm.component';
 
 @NgModule({
     imports: [
@@ -29,12 +30,14 @@ import { CategoryComponent } from './category/category.component';
         BookComponent,
         BookFormComponent,
         CategoryComponent,
+        CategoryFormComponent
     ],
     declarations: [
         BookMgmtComponent,
         BookComponent,
         BookFormComponent,
         CategoryComponent,
+        CategoryFormComponent
     ],
 })
 export class BookManagementModule {}
