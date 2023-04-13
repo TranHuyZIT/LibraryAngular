@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { headShake, wobble } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
 import { BookService } from 'src/app/core/services/books.service';
+import { CartService } from 'src/app/core/services/cart.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { ImageService } from 'src/app/core/services/image.service';
 import TinhTrangEnum, { bookItem } from 'src/app/enum/tinhtrang.enum';
@@ -24,6 +25,7 @@ import TinhTrangEnum, { bookItem } from 'src/app/enum/tinhtrang.enum';
 })
 export class BookFormComponent implements OnInit {
     headshake: any;
+    category: any;
     constructor(
         public dialogRef: MatDialogRef<BookFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -31,15 +33,34 @@ export class BookFormComponent implements OnInit {
         private toastrService: ToastrService,
         private imageService: ImageService,
         private categoryService: CategoryService,
-        private bookService: BookService
+        private bookService: BookService,
+        private cartService: CartService
     ) {
         this.form = this.fb.group({
-            ten: new FormControl('', Validators.required),
-            namXB: new FormControl('', Validators.required),
-            tacGia: new FormControl('', Validators.required),
-            image: new FormControl('', Validators.required),
-            categoryId: new FormControl('', Validators.required),
-            mota: new FormControl('', Validators.required),
+            ten: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
+            namXB: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
+            tacGia: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
+            image: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
+            categoryId: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
+            mota: new FormControl(
+                { value: '', disabled: data.type === 'view' },
+                Validators.required
+            ),
         });
     }
     ngOnInit(): void {
@@ -62,7 +83,9 @@ export class BookFormComponent implements OnInit {
                         categoryId: data.category.id,
                         mota: data.mota,
                     });
+                    this.category = data.category;
                     this.bookItemsTable = data.listBookItem.map((e: any) => ({
+                        id: e.id,
                         trangThai: e.trangThai,
                         soLanMuon: e.soLanMuon,
                         tinhTrang: e.tinhTrang,
@@ -106,7 +129,11 @@ export class BookFormComponent implements OnInit {
             this.bookService
                 .add({
                     ...this.formValues,
-                    listBookItem: this.bookItemsTable,
+                    listBookItem: this.bookItemsTable.map((e) => ({
+                        trangThai: e.trangThai,
+                        soLanMuon: e.soLanMuon,
+                        tinhTrang: e.tinhTrang,
+                    })),
                 })
                 .subscribe({
                     next: (data) => {
@@ -123,7 +150,11 @@ export class BookFormComponent implements OnInit {
             this.bookService
                 .update(this.data.id, {
                     ...this.formValues,
-                    listBookItem: this.bookItemsTable,
+                    listBookItem: this.bookItemsTable.map((e) => ({
+                        trangThai: e.trangThai,
+                        soLanMuon: e.soLanMuon,
+                        tinhTrang: e.tinhTrang,
+                    })),
                 })
                 .subscribe({
                     next: (data) => {
@@ -140,7 +171,7 @@ export class BookFormComponent implements OnInit {
     }
 
     // table book items
-    bookItemsTable: bookItem[] = [];
+    bookItemsTable: any[] = [];
     borrowed = false;
     numberBorrowed = 0;
     status = 'VERY_GOOD';
@@ -152,6 +183,10 @@ export class BookFormComponent implements OnInit {
         });
     }
     removeBookItem(index: number) {
+        if (this.data.type === 'view') {
+            this.toastrService.error('Không thể xóa khi đang xem');
+            return;
+        }
         this.bookItemsTable.splice(index, 1);
     }
     onCheck(borrowed: boolean) {
@@ -159,5 +194,9 @@ export class BookFormComponent implements OnInit {
     }
     onSelectChange(value: any) {
         this.status = value;
+    }
+    borrow(bookItem: any) {
+        this.cartService.saveItem(bookItem);
+        console.log(this.cartService.getCart());
     }
 }
