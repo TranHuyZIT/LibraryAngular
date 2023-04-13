@@ -1,0 +1,27 @@
+.card-text {
+    overflow: hidden;
+}
+.text-truncate-multi {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.action-card{
+    text-align: center;
+    padding: 5px;
+}
+
+.category-title{
+    padding: 5px;
+}
+
+.category-head{
+    text-align: left;
+}
+
+.action-box button{
+    display: inline-block;
+}
