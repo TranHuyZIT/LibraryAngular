@@ -13,7 +13,21 @@
                         class="info-container row justify-content-center"
                         [formGroup]="form"
                     >
-                        <div class="col col-6">
+                        <div class="col col-6" *ngIf="data.type === 'view'">
+                            <label>Thể loại sách</label>
+                            <input
+                                [disabled]="true"
+                                type="text"
+                                class="form-control"
+                                readonly
+                                [value]="category.name"
+                            />
+                        </div>
+                        <div
+                            [className]="
+                                data.type === 'view' ? 'd-none' : 'col col-6'
+                            "
+                        >
                             <label>Chọn thể loại sách</label>
                             <div class="input-group">
                                 <mat-form-field>
@@ -48,6 +62,7 @@
                             <label>Ngày xuất Bản</label>
                             <div class="input-group">
                                 <input
+                                    [disabled]="data.type === 'view'"
                                     type="text"
                                     formControlName="namXB"
                                     class="form-control"
@@ -63,6 +78,7 @@
                                 <mat-datepicker-toggle
                                     matIconSuffix
                                     [for]="picker"
+                                    [disabled]="data.type === 'view'"
                                 ></mat-datepicker-toggle>
                                 <div
                                     *ngIf="
@@ -136,7 +152,7 @@
                         </div>
                         <div class="form-group col col-12">
                             <label>Mô tả</label>
-                            <input
+                            <textarea
                                 type="text"
                                 formControlName="mota"
                                 class="form-control"
@@ -144,7 +160,7 @@
                                     'is-invalid':
                                         submitted && formControls['mota'].errors
                                 }"
-                            />
+                            ></textarea>
                             <div
                                 *ngIf="submitted && formControls['mota'].errors"
                                 class="invalid-feedback"
@@ -160,7 +176,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group col col-6">
+                        <div
+                            [className]="data.type === 'view' ? 'd-none' : ''"
+                            class="form-group col col-6"
+                        >
                             <label>Link ảnh</label>
                             <input
                                 (change)="onChangeImage($event)"
@@ -291,10 +310,21 @@
                                         </td>
                                         <td>
                                             <button
-                                                (click)="removeBookItem(i)"
+                                                *ngIf="data.type != 'view'"
                                                 class="btn btn-danger"
+                                                (click)="removeBookItem(i)"
                                             >
                                                 Xóa
+                                            </button>
+                                            <button
+                                                *ngIf="
+                                                    data.type == 'view' &&
+                                                    data?.isCustomerPage
+                                                "
+                                                class="btn btn-primary"
+                                                (click)="borrow(row)"
+                                            >
+                                                Mượn
                                             </button>
                                         </td>
                                     </tr>

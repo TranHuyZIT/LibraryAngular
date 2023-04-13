@@ -2,11 +2,26 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from './core/services/admin-guard.service';
 import { AuthGuard } from './core/services/auth-guard.service';
+import { IndexComponent } from './home/index/index.component';
 
 const routes: Routes = [
     {
+        path: '',
+        pathMatch: 'full',
+        loadChildren: () =>
+            import('./home/index/index.module').then((m) => m.IndexModule),
+    },
+    {
         path: 'home',
         children: [
+            {
+                path: '',
+                canActivate: [],
+                loadChildren: () =>
+                    import('./home/index/index.module').then(
+                        (m) => m.IndexModule
+                    ),
+            },
             {
                 path: 'reader',
                 canActivate: [],
