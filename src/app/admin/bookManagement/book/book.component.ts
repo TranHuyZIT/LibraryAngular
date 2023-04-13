@@ -1,5 +1,5 @@
 import { transition, trigger, useAnimation } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { bounceIn } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +17,8 @@ import TinhTrangEnum, { bookItem } from 'src/app/enum/tinhtrang.enum';
         trigger('bounce', [transition('* => *', useAnimation(bounceIn))]),
     ],
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnChanges, OnInit {
+    @Input() isCustomerPage = false;
     bounce: any;
     constructor(
         private toasrtService: ToastrService,
@@ -69,6 +70,7 @@ export class BookComponent implements OnInit {
             },
         });
     }
+    ngOnChanges(): void {}
     // Filter and options
     categoryOptions: any[] = [];
     selectedCategories: any[] = [];
@@ -99,6 +101,7 @@ export class BookComponent implements OnInit {
             data: {
                 id,
                 type,
+                isCustomerPage: this.isCustomerPage,
             },
         });
         if (type == 'update')
