@@ -13,7 +13,11 @@ import { RouterModule } from '@angular/router';
 import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
+
 import { ReaderService } from './services/reader.service';
+
+import { CartService } from './services/cart.service';
+
 
 @NgModule({
     imports: [CommonModule, RouterModule],
@@ -36,7 +40,11 @@ import { ReaderService } from './services/reader.service';
         JwtService,
         CategoryService,
         BookService,
+
         ReaderService
+
+        CartService,
+
     ],
     declarations: [],
 })

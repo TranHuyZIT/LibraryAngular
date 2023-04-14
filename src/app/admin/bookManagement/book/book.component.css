@@ -33,3 +33,16 @@
 .form-check-label {
     color: var(--bs-secondary);
 }
+
+.customer-home-heading h1,
+h4 > em {
+    font-family: 'Lobster', cursive;
+}
+h4 {
+}
+h4 > em {
+    padding: 12px;
+
+    background-color: var(--bs-secondary);
+    color: white;
+}

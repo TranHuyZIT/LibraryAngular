@@ -1,12 +1,20 @@
-<div class="row mt-5 justify-content-end">
+<div *ngIf="!isCustomerPage" class="row mt-5 justify-content-end">
     <button class="col col-1 btn btn-secondary me-2">Trang chủ</button>
     <button (click)="add()" class="col col-1 btn btn-primary">Thêm</button>
+</div>
+<div
+    *ngIf="isCustomerPage"
+    class="customer-home-heading row my-3 justify-content-center"
+>
+    <h1 class="col col-4 text-center">Chọn Sách Từ Thư Viện!</h1>
 </div>
 <div class="row shadow rounded">
     <!-- FILTER START -->
     <div class="col col-3 filter-container shadow rounded">
         <div class="category-filter-container">
-            <h4><em>Thể Loại Sách</em></h4>
+            <h4 class="rounded w-100 d-flex justify-content-center">
+                <em class="text-center w-100">Thể Loại Sách</em>
+            </h4>
             <div class="row gy-3 px-4 py-2">
                 <div *ngFor="let category of categoryOptions" class="col col-6">
                     <div class="form-check">
@@ -73,17 +81,31 @@
                                 }}</em>
                             </p>
                         </div>
-                        <button
-                            href="#"
-                            (click)="
-                                selectCard(book.id, 'update');
-                                $event.stopPropagation()
-                            "
-                            class="btn btn-primary"
-                        >
-                            Sửa
-                        </button>
-                        <button class="btn btn-danger ms-2">Xóa</button>
+                        <ng-container *ngIf="!isCustomerPage">
+                            <button
+                                href="#"
+                                (click)="
+                                    selectCard(book.id, 'update');
+                                    $event.stopPropagation()
+                                "
+                                class="btn btn-primary"
+                            >
+                                Sửa
+                            </button>
+                            <button class="btn btn-danger ms-2">Xóa</button>
+                        </ng-container>
+                        <ng-container *ngIf="isCustomerPage">
+                            <button
+                                href="#"
+                                (click)="
+                                    selectCard(book.id, 'view');
+                                    $event.stopPropagation()
+                                "
+                                class="col col-6 btn btn-primary"
+                            >
+                                Mượn
+                            </button>
+                        </ng-container>
                     </div>
                 </div>
             </div>

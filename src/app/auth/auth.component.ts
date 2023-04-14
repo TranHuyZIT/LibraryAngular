@@ -80,7 +80,7 @@ export class AuthComponent implements OnInit {
             this.authService.attemptAuth(this.authType, credentials).subscribe({
                 next(data) {
                     if (data.role === 'ADMIN') {
-                        that.router.navigateByUrl('/admin/order-mgmt');
+                        that.router.navigateByUrl('/admin/book-mgmt');
                         return;
                     }
 

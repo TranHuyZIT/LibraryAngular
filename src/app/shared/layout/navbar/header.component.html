@@ -21,22 +21,47 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a
                         class="nav-link py-3 px-0 px-lg-3 rounded"
-                        href="#portfolio"
+                        routerLink="/home"
                         >Trang chủ</a
                     >
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about"
+                <li *appShowAdmin="true" class="nav-item mx-0 mx-lg-1">
+                    <a
+                        routerLink="/admin/book-mgmt"
+                        class="nav-link py-3 px-0 px-lg-3 rounded"
                         >Admin</a
                     >
                 </li>
-                <li class="nav-item mx-0 mx-lg-1">
+                <li *appShowAuthed="true" class="nav-item mx-0 mx-lg-1">
                     <a
                         class="nav-link py-3 px-0 px-lg-3 rounded"
-                        href="#contact"
+                        routerLink="/home/cart"
                         >Giỏ Sách</a
                     >
                 </li>
+                <li *appShowAuthed="true" class="nav-item mx-0 mx-lg-1">
+                    <a
+                        class="nav-link py-3 px-0 px-lg-3 rounded"
+                        routerLink="/home/phieugiahan"
+                        >Xin Gia Hạn</a
+                    >
+                </li>
+                <ng-container *appShowAuthed="false">
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a
+                            routerLink="/login"
+                            class="nav-link py-3 px-0 px-lg-3 rounded"
+                            >Đăng Nhập</a
+                        >
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1">
+                        <a
+                            routerLink="/register"
+                            class="nav-link py-3 px-0 px-lg-3 rounded"
+                            >Đăng ký</a
+                        >
+                    </li>
+                </ng-container>
             </ul>
         </div>
     </div>
