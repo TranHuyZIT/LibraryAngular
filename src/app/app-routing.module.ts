@@ -30,6 +30,12 @@ const routes: Routes = [
                         (m) => m.ReaderModule
                     ),
             },
+            {
+                path: 'cart',
+                canActivate: [],
+                loadChildren: () =>
+                    import('./home/cart/cart.module').then((m) => m.CartModule),
+            },
         ],
     },
     {

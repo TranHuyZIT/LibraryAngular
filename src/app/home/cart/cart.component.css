@@ -1,0 +1,76 @@
+.cart-page-container {
+    margin-top: 120px;
+}
+.header-cart {
+    justify-content: space-between;
+    align-items: center;
+}
+.header-cart h1,
+.header-cart h2,
+.header-info h1 {
+    font-weight: 300;
+    font-family: 'Lobster', cursive;
+    padding: 8px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    text-align: center;
+}
+.header-cart:after,
+.header-info:after {
+    content: '';
+    background-color: lightgray;
+    height: 3px;
+    display: block;
+    width: 80%;
+    margin: auto;
+}
+.table td {
+    text-align: center;
+}
+.book-info-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.book-image {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+}
+.book-info-container h4 {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: start;
+}
+.book-info-container h5 {
+    font-weight: 300;
+    text-align: start;
+    font-size: 16px;
+}
+.book-info-container p {
+    color: red;
+    margin: 0;
+    text-align: start;
+    font-style: italic;
+}
+.book-container .btn-link {
+    text-align: start;
+}
+.phieumuon-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0 12px;
+}
+.phieumuon-info-container {
+    padding: 12px;
+}
+.number h4 {
+    text-align: start;
+    font-style: bold;
+    font-size: 16px;
+}
+.note-save {
+    font-size: 14px;
+}

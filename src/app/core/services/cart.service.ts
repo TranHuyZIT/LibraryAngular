@@ -28,16 +28,19 @@ export class CartService {
 
     constructor(private router: Router) {}
 
-    getCart(): String {
+    getCart(): any[] {
         return window.localStorage['cart'] &&
             JSON.parse(window.localStorage['cart'])?.length > 0
             ? JSON.parse(window.localStorage['cart'])
             : [];
     }
 
-    saveItem(token: any) {
+    saveItem(bookItem: any, book: any) {
         const currentCart = [...this.getCart()];
-        currentCart.push(token);
+        currentCart.push({
+            ...bookItem,
+            book,
+        });
         window.localStorage['cart'] = JSON.stringify(currentCart);
         this.currentCartSubject.next(currentCart);
     }

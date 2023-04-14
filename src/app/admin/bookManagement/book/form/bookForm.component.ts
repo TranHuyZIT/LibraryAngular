@@ -26,6 +26,7 @@ import TinhTrangEnum, { bookItem } from 'src/app/enum/tinhtrang.enum';
 export class BookFormComponent implements OnInit {
     headshake: any;
     category: any;
+    book: any;
     constructor(
         public dialogRef: MatDialogRef<BookFormComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -75,6 +76,7 @@ export class BookFormComponent implements OnInit {
         if (this.data.id) {
             this.bookService.getOne(this.data.id).subscribe({
                 next: (data) => {
+                    this.book = data;
                     this.form.setValue({
                         ten: data.ten,
                         namXB: data.namXB,
@@ -84,12 +86,7 @@ export class BookFormComponent implements OnInit {
                         mota: data.mota,
                     });
                     this.category = data.category;
-                    this.bookItemsTable = data.listBookItem.map((e: any) => ({
-                        id: e.id,
-                        trangThai: e.trangThai,
-                        soLanMuon: e.soLanMuon,
-                        tinhTrang: e.tinhTrang,
-                    }));
+                    this.bookItemsTable = data.listBookItem;
                     console.log(this.bookItemsTable);
                 },
                 error: (err) => {
@@ -196,7 +193,14 @@ export class BookFormComponent implements OnInit {
         this.status = value;
     }
     borrow(bookItem: any) {
-        this.cartService.saveItem(bookItem);
-        console.log(this.cartService.getCart());
+        const currentCart = this.cartService.getCart();
+        if (currentCart.find((e) => e.id == bookItem.id)) {
+            this.toastrService.error(
+                'Bạn đã chọn quyển sách này trong giỏ hàng rồi!'
+            );
+            return;
+        }
+        this.cartService.saveItem(bookItem, this.book);
+        this.toastrService.success('Thêm vào giỏ hàng thành công');
     }
 }
