@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CategoryComponent } from './category/category.component';
 
 import { BookModule } from './book/book.module';
-
+import { CategoryFormComponent } from './category/categoryForm/categoryForm.component';
 
 @NgModule({
     imports: [
@@ -28,7 +28,7 @@ import { BookModule } from './book/book.module';
         MatSelectModule,
         BookModule,
     ],
-    exports: [BookMgmtComponent, CategoryComponent],
-    declarations: [BookMgmtComponent, CategoryComponent],
+    exports: [BookMgmtComponent, CategoryComponent, CategoryFormComponent],
+    declarations: [BookMgmtComponent, CategoryComponent, CategoryFormComponent],
 })
 export class BookManagementModule {}

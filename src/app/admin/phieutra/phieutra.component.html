@@ -1,1 +1,62 @@
 <header-nav></header-nav>
+<div class="container-lg pm-margin-container shadow rounded"
+[formGroup]="form"
+>
+    <div class="row">
+        <div class="col-6 info-container">
+            <h5>Id thủ thư: {{librarianId}}</h5>
+            <h5>Ngày mượn: </h5>
+            <div class="input-group">
+                    <input type="text" class="form-control">
+            </div>
+            <h5>Ghi chú:</h5>
+            <div class="input-group">
+                <textarea class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <!-- <mat-form-field>
+                    <mat-select
+                        placeholder="Chọn thể loại"
+                        [value]="formValues.categoryId"
+                        formControlName="categoryId"
+                    >
+                        <mat-option
+                            *ngFor="
+                                let category of categoryOptions
+                            "
+                            [value]="category.id"
+                        >
+                            {{ category.name }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                        [@headshake]="headshake"
+                        *ngIf="
+                            submitted &&
+                            formControls['categoryId'].errors
+                        "
+                        class="invalid-feedback"
+                    >s
+                        Thể loại không được trống
+                    </mat-error>
+                </mat-form-field> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive navbar-text">
+            <table class="table">
+                <thead class="table-head">
+                    <tr>
+                        <td class="text-center"><h5>Sách</h5></td>
+                        <td class="text-center"><h5>Tình trạng</h5></td>
+                        <td class="text-center"><h5>Hạn trả</h5></td>
+                        <td class="text-center"><h5>Thao tác</h5> </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+.book-mgmt-container {
+    margin-top: 120px;
+}
+.nav-item {
+    cursor: pointer;
+    padding: 0;
+    font-weight: 500;
+    font-size: 20px;
+}
+.date {
+    width: 100px;
+    right: 0;
+    top: 0;
+}
+
+.pm-margin-container {
+    margin-top: 120px;
+}
+.info-container {
+    padding-right: 8px;
+    border-right: 1px dashed #333;
+}
+.table-head {
+    background-color: var(--bs-secondary);
+    color: #fff; 
+}

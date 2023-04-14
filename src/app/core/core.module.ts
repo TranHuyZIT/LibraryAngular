@@ -14,6 +14,8 @@ import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
 import { CartService } from './services/cart.service';
+import { LibrarianService } from './services/librarian.service';
+import { PhieuTraService } from './services/phieutra.service';
 
 @NgModule({
     imports: [CommonModule, RouterModule],
@@ -37,6 +39,8 @@ import { CartService } from './services/cart.service';
         CategoryService,
         BookService,
         CartService,
+        LibrarianService,
+        PhieuTraService
     ],
     declarations: [],
 })
