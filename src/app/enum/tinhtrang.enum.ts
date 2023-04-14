@@ -5,7 +5,7 @@ enum TinhTrangEnum {
     UNUSEABLE = 'Không sử dụng được',
 }
 export default TinhTrangEnum;
-export function convertGenderValueToKey(value: any) {
+export function convertTinhTrangValueToKey(value: any) {
     return Object.keys(TinhTrangEnum)[
         Object.values(TinhTrangEnum).indexOf(value)
     ];
