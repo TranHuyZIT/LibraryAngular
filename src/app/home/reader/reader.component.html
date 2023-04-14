@@ -1,1 +1,117 @@
-<p>code cập nhật thông tin hồ sơ</p>
+<div class="form-container updateForm-total">
+    <div class="row confirm-heading-container">
+        <div class="col col-12">
+            <h2 class="text-center heading-container">FAHASA</h2>
+        </div>
+    </div>
+    <div class="container updateForm shadow">
+        <h2>Cập nhật thông tin Người Đọc</h2>
+        <form [formGroup]="form" (ngSubmit)="Submit()">
+            <div class="form-group">
+                <label for="name">Tên người đọc:</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="name"
+                />
+                <!-- <div
+                    *ngIf="submitted && formControls['name'].errors"
+                    class="invalid-feedback"
+                >
+                    <div
+                        [@headshake]="headshake"
+                        *ngIf="formControls['name'].errors['required']"
+                    >
+                        Mô tả không được trống
+                    </div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label>Ngày tháng năm sinh</label>
+                <div class="input-group">
+                    <input
+                        type="text"
+                        formControlName="birth"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && formControls['birth'].errors
+                        }"
+                        matInput
+                        [matDatepicker]="picker"
+                        readonly
+                    />
+                    <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <div
+                        *ngIf="submitted && formControls['birth'].errors"
+                        class="invalid-feedback"
+                    >
+                        <div *ngIf="formControls['birth'].errors">
+                            Ngày tháng năm sinh không được trống
+                        </div>
+                    </div>
+
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <textarea
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    formControlName="email"
+                    required
+                ></textarea>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    formControlName="phone"
+                    required
+                />
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <textarea
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    formControlName="address"
+                    required
+                ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="(Submit)">
+                Submit
+            </button>
+        </form>
+        <form>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên sách</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jane</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Bob</td>
+                </tr>
+            </tbody>
+        </form>
+    </div>
+</div>
