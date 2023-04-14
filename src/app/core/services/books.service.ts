@@ -24,4 +24,7 @@ export class BookService {
     getOne(id: any) {
         return this.apiService.get('/book/' + id);
     }
+    getAllByReaderId(readerId: any) {
+        return this.apiService.get('/bookItem/reader/' + readerId);
+    }
 }

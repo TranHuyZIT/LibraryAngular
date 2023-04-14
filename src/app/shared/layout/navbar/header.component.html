@@ -39,6 +39,13 @@
                         >Giỏ Sách</a
                     >
                 </li>
+                <li *appShowAuthed="true" class="nav-item mx-0 mx-lg-1">
+                    <a
+                        class="nav-link py-3 px-0 px-lg-3 rounded"
+                        routerLink="/home/phieugiahan"
+                        >Xin Gia Hạn</a
+                    >
+                </li>
                 <ng-container *appShowAuthed="false">
                     <li class="nav-item mx-0 mx-lg-1">
                         <a
