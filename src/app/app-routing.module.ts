@@ -65,6 +65,13 @@ const routes: Routes = [
                         (m) => m.LibrarianModule
                     ),
             },
+            {
+                path: 'phieumuon',
+                loadChildren: () =>
+                    import('./admin/phieumuon/phieumuon.module').then(
+                        (m) => m.PhieuMuonModule
+                    ),
+            },
         ],
     },
 ];

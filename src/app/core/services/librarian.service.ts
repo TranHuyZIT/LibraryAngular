@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Router } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable()
-export class PhieuMuonService {
-    constructor(private apiService: ApiService, private router: Router) {}
-    customerSave(body: any) {
-        return this.apiService.post('/phieumuon', body);
-    }
+export class LibrarianService {
+    constructor(private apiService: ApiService) {}
     getAll(filters?: any) {
         const queries = new HttpParams()
             .set('pageNo', filters?.pageNo || '')
@@ -20,7 +16,10 @@ export class PhieuMuonService {
     add(body: any) {
         return this.apiService.post('/librarian', body);
     }
-    delete(id: any) {
-        return this.apiService.delete(`/librarian/${id}`)
+    update(id: any, body: any) {
+        return this.apiService.put(`/librarian/${id}`, body);
+    }
+    getOne(id: any) {
+        return this.apiService.get(`/librarian/${id}`);
     }
 }

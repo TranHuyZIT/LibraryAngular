@@ -1,1 +1,95 @@
-<p>code cập nhật thông tin hồ sơ</p>
+<header-nav></header-nav>
+<div class="container-lg lb-margin-container" >
+    <div class=" updateForm shadow" 
+    [formGroup]="form"
+    >
+        <h2>Cập Nhật Thông Tin Thủ Thư</h2>
+            <div class="form-group">
+                <label for="name">Họ và tên:</label>
+                <div class="input-group">
+                    <input type="text" formControlName="name"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid':
+                            submitted && formControls['name'].errors
+                        }"
+                    >
+                    <div
+                        *ngIf="submitted && formControls['name'].errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            [@headshake]="headshake"
+                            *ngIf="
+                                formControls['name'].errors['required']
+                            "
+                        >
+                            Tên không được trống
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="dob">Ngày sinh:</label>
+              <div class="input-group">
+                <input
+                    type="text"
+                    formControlName="dob"
+                    class="form-control"
+                    [ngClass]="{
+                        'is-invalid':
+                            submitted &&
+                            formControls['dob'].errors
+                    }"
+                    matInput
+                    [matDatepicker]="picker"
+                    readonly
+                />
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <div
+                    *ngIf="
+                        submitted &&
+                        formControls['dob'].errors
+                    "
+                    class="invalid-feedback"
+                >
+                    <div *ngIf="formControls['dob'].errors">
+                      Ngày sinh không được trống
+                    </div>
+                </div>
+
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <div class="input-group">
+                    <input type="tel" formControlName="contact"
+                        class="form-control"
+                        [ngClass]="{
+                        'is-invalid':
+                        submitted && formControls['contact'].errors
+                        }"
+                    >
+                    <div
+                        *ngIf="submitted && formControls['contact'].errors"
+                        class="invalid-feedback"
+                    >
+                        <div
+                            [@headshake]="headshake"
+                            *ngIf="
+                                formControls['contact'].errors['required']
+                            "
+                        >
+                        Số điện thoại không được trống
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+</div>
+

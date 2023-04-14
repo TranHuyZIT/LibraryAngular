@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
+import { LibrarianService } from './services/librarian.service';
+import { PhieuMuonService } from './services/phieumuon.service';
 
 import { ReaderService } from './services/reader.service';
 
@@ -41,10 +43,12 @@ import { CartService } from './services/cart.service';
         CategoryService,
         BookService,
 
-        ReaderService
+        ReaderService,
 
         CartService,
 
+        LibrarianService,
+        PhieuMuonService,
     ],
     declarations: [],
 })

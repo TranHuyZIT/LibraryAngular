@@ -10,31 +10,34 @@ import { headShake, wobble } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { LibrarianService } from 'src/app/core/services/librarian.service';
+import { PhieuMuonService } from 'src/app/core/services/phieumuon.service';
 
 @Component({
-    selector: 'librarian-component',
-    templateUrl: 'librarian.component.html',
-    styleUrls: ['./librarian.component.css'],
+    selector: 'phieumuon-component',
+    templateUrl: 'phieumuon.component.html',
+    styleUrls: ['./phieumuon.component.css'],
     animations: [
         trigger('headshake', [transition('* => *', useAnimation(headShake))]),
     ],
 })
-export class LibrarianComponent implements OnInit{
+export class PhieuMuonComponent
+ implements OnInit
+{
     headshake: any;
     constructor(
         private fb: FormBuilder,
         private toastrService: ToastrService,
-        private librarianService: LibrarianService,
+        private phieumuonservice: PhieuMuonService,
         private authservice: AuthService,
-    ){  
+        private librarianService: LibrarianService,
+    ) {
         this.form = this.fb.group({
-            name: new FormControl('', Validators.required),
-            dob:  new FormControl('', Validators.required),
-            contact:  new FormControl('', Validators.required),
+            ngayMuon:  new FormControl('', Validators.required),
+            note:  new FormControl('', Validators.required),
         });
     }
     ngOnInit(): void {
-        this.librarianService.getAll().subscribe({
+        this.phieumuonservice.getAll().subscribe({
             next: (data) => {
                 this.categoryOptions = data;
             },
@@ -46,11 +49,7 @@ export class LibrarianComponent implements OnInit{
             next: (user) => {
                 this.librarianService.getOne(user.id).subscribe({
                    next: (data) => {
-                        this.form.setValue({
-                            name: data.name,
-                            dob: data.dob,
-                            contact: data.contact,
-                        });
+                        this.librarianId = data.id;
                     },
                     error: (err) => {
                         this.toastrService.error(err.message);
@@ -60,28 +59,6 @@ export class LibrarianComponent implements OnInit{
             }
 
         });
-    }
-    submit() {
-        this.submitted = true;
-        if (!this.form.valid) {
-            this.toastrService.error('Vui lòng kiểm tra lại thông tin');
-            return;
-        }
-        this.librarianService
-                .update(this.curentuser.id, {
-                    ...this.formValues,
-                    user: this.curentuser.id
-                })
-                .subscribe({
-                    next: (curentuser) => {
-                        this.toastrService.success(
-                            ' ' + curentuser.name + ' thành công'
-                        );
-                    },
-                    error: (err) => {
-                        this.toastrService.error(err.message);
-                    },
-                });
     }
     form!: FormGroup;
     submitted = false;
@@ -93,4 +70,5 @@ export class LibrarianComponent implements OnInit{
         return this.form.value;
     }
     curentuser: any;
+    librarianId: any;
 }
