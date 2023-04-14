@@ -60,8 +60,14 @@
     text-align: start;
 }
 .phieumuon-container {
+    height: 550px;
+    border-radius: 12px;
     background-color: rgba(0, 0, 0, 0.05);
     padding: 0 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
 }
 .phieumuon-info-container {
     padding: 12px;

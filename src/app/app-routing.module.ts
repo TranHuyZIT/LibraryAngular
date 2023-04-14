@@ -36,6 +36,14 @@ const routes: Routes = [
                 loadChildren: () =>
                     import('./home/cart/cart.module').then((m) => m.CartModule),
             },
+            {
+                path: 'phieugiahan',
+                canActivate: [],
+                loadChildren: () =>
+                    import('./home/phieugiahan/phieugiahan.module').then(
+                        (m) => m.PhieuGiaHanModule
+                    ),
+            },
         ],
     },
     {
