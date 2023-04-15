@@ -173,6 +173,8 @@ export class BookFormComponent implements OnInit {
     numberBorrowed = 0;
     status = 'VERY_GOOD';
     addBookItem() {
+        console.log(this.numberBorrowed);
+
         this.bookItemsTable.push({
             trangThai: this.borrowed,
             soLanMuon: this.numberBorrowed,
@@ -191,6 +193,9 @@ export class BookFormComponent implements OnInit {
     }
     onSelectChange(value: any) {
         this.status = value;
+    }
+    onNumberBorrowChange(value: any) {
+        this.numberBorrowed = value;
     }
     borrow(bookItem: any) {
         const currentCart = this.cartService.getCart();

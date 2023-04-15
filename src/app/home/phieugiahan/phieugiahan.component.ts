@@ -60,8 +60,14 @@ export class PhieuGiaHanComponent implements OnInit {
 
     // Form
     form: FormGroup;
-    submitted = true;
-    save() {}
+    submitted = false;
+    save() {
+        this.submitted = true;
+        if (!this.form.valid || !this.detailForm.valid) {
+            this.toastrService.error('Vui lòng kiểm tra lại thông tin');
+            return;
+        }
+    }
     get formControls() {
         return this.form.controls;
     }
