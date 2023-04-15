@@ -7,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col-6 info-container">
-            <h5>Tên thủ thư: {{ curentuser.name }}</h5>
+            <h5>Tên thủ thư: {{ currentuser.name }}</h5>
             <div class="form-group">
                 <h5>Ngày mượn: </h5>
                 <div class="input-group">
@@ -50,40 +50,42 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="form-group col-12">
+            <div class="form-group">
+                <h5>Tên độc giả:</h5>
                 <div class="row">
                     <div class="input-group mb-3">
-                        <!-- <mat-form-field>
+                        <mat-form-field  class="col">
                             <mat-select
-                                formControlName="readerID"
-                                placeholder="Mã độc giả"
+                                formControlName="readerId"
+                                placeholder="Độc giả"
                                 #singleSelect
                             >
                                 <mat-option>
                                     <ngx-mat-select-search
+                                        placeholderLabel="Find name..."
                                         [formControl]="search"
                                     ></ngx-mat-select-search>
                                 </mat-option>
 
                                 <mat-option
-                                    *ngFor="let phieutra of listPhieuTra"
-                                    [value]="phieutra.id"
+                                    *ngFor="let reader of listReader"
+                                    [value]="reader.id"
                                 >
-                                    {{ phieutra.name }}
+                                    {{ reader.name }}
                                 </mat-option>
                             </mat-select>
-                        </mat-form-field> -->
-                        <div class="col col-12 mt-2">
-                            <div class="d-flex justify-content-center">
-                                <button
-                                    (click)="save()"
-                                    class="btn btn-primary"
-                                >
-                                    Gửi Phiếu Mượn
-                                </button>
-                            </div>
+                        </mat-form-field>
                     </div>
-                </div>
+                    <div class="col col-12 mt-2">
+                        <div class="d-flex justify-content-center">
+                            <button
+                                (click)="save()"
+                                class="btn btn-primary"
+                            >
+                                Gửi Phiếu Mượn
+                            </button>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

@@ -15,12 +15,12 @@ export class PhieuMuonService {
             .set('sortBy', filters?.sortBy || '')
             .set('pageSize', filters?.pageSize || '')
             .set('reverse', !!filters?.reverse);
-        return this.apiService.get('/librarian', queries);
+        return this.apiService.get('/phieumuon', queries);
     }
     add(body: any) {
-        return this.apiService.post('/librarian', body);
+        return this.apiService.post('/phieumuon', body);
     }
     delete(id: any) {
-        return this.apiService.delete(`/librarian/${id}`)
+        return this.apiService.delete(`/phieumuon/${id}`)
     }
 }
