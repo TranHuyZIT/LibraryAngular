@@ -21,4 +21,5 @@ export class PhieuTraService {
     delete(id: any){
         return this.apiService.delete(`/phieutra/${id}`);
     }
+    
 }

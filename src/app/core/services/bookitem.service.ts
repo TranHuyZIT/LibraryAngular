@@ -16,4 +16,7 @@ export class  BookItemService{
     update(id: any, body: any) {
         return this.apiService.put(`/bookItem/${id}`, body);
     }
+    getAllBorrowed(id: any){
+        return this.apiService.get(`/bookItem/reader/${id}`);
+    }
 }

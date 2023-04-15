@@ -1,22 +1,56 @@
 <header-nav></header-nav>
-<div class="container-lg pm-margin-container shadow rounded"
-[formGroup]="form"
->
+<div class="container-lg pm-margin-container shadow rounded" [formGroup]="form">
     <div class="row">
-        <div class="col-6 info-container">
-            <h5>Id thủ thư: {{librarianId}}</h5>
-            <h5>Ngày mượn: </h5>
-            <div class="input-group">
-                    <input type="text" class="form-control">
-            </div>
-            <h5>Ghi chú:</h5>
-            <div class="input-group">
-                <textarea class="form-control"></textarea>
-            </div>
+        <div class="row header-info">
+            <h1>Phiếu Trả</h1>
         </div>
-        <div class="col-6">
-            <div class="input-group">
-                <!-- <mat-form-field>
+        <h5>Tên thủ thư: {{ librarianId }}</h5>
+        <div class="col-6 info-container">
+            <div class="row">
+                <div class="form-group col col-6">
+                    <label>Ngày Trả</label>
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            formControlName="ngayTra"
+                            class="form-control"
+                            [ngClass]="{
+                                'is-invalid':
+                                    submitted && formControls['ngayTra'].errors
+                            }"
+                            matInput
+                            [matDatepicker]="picker"
+                            readonly
+                        />
+                        <mat-datepicker-toggle
+                            matIconSuffix
+                            [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <div
+                            *ngIf="submitted && formControls['ngayTra'].errors"
+                            class="invalid-feedback"
+                        >
+                            <div *ngIf="formControls['ngayTra'].errors">
+                                Ngày trả không được trống
+                            </div>
+                        </div>
+
+                        <mat-datepicker #picker></mat-datepicker>
+                    </div>
+                    <div class="form-group col col-12">
+                        <label>Ghi Chú</label>
+                        <input
+                            type="text"
+                            formControlName="note"
+                            class="form-control"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="input-group">
+                    <!-- <mat-form-field>
                     <mat-select
                         placeholder="Chọn thể loại"
                         [value]="formValues.categoryId"
@@ -42,21 +76,66 @@
                         Thể loại không được trống
                     </mat-error>
                 </mat-form-field> -->
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="table-responsive navbar-text">
-            <table class="table">
-                <thead class="table-head">
-                    <tr>
-                        <td class="text-center"><h5>Sách</h5></td>
-                        <td class="text-center"><h5>Tình trạng</h5></td>
-                        <td class="text-center"><h5>Hạn trả</h5></td>
-                        <td class="text-center"><h5>Thao tác</h5> </td>
-                    </tr>
-                </thead>
-            </table>
+        <div class="col-6">
+            <div class="form-group col-12">
+                <div class="row">
+                    <div class="input-group mb-3">
+                        <mat-form-field>
+                            <mat-select
+                                formControlName="readerID"
+                                placeholder="Mã độc giả"
+                                #singleSelect
+                            >
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        [formControl]="search"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option
+                                    *ngFor="let phieutra of listPhieuTra"
+                                    [value]="phieutra.id"
+                                >
+                                    {{ phieutra.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row header-info">
+                <h2>Chi Tiết Phiếu Trả</h2>
+            </div>
+            <div class="table-responsive navbar-text phieumuon-container">
+                <table class="table phieutra-table">
+                    <thead>
+                        <tr>
+                            <td class=".text-center"><b>Sách</b></td>
+                            <td class=".text-center"><b>Tình trạng</b></td>
+                            <td class=".text-center"><b>Ngày trả</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listPhieuTra">
+                            <td>
+                                <div>item.</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <button class="btn btn-primary">
+                                    Thêm phiếu trả
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

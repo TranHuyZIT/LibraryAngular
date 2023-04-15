@@ -1,0 +1,168 @@
+<header-nav></header-nav>
+<div class="container-lg cart-page-container">
+    <div class="row">
+        <div class="col col-8">
+            <div class="row header-cart">
+                <div class="col col-3">
+                    <h1>Giỏ Sách</h1>
+                </div>
+                <div class="col col-5">
+                    <h2>Tổng Số Sách: {{ numberOfBooks }}</h2>
+                </div>
+            </div>
+            <div class="row mt-3 cart-details-container">
+                <div [formGroup]="dates" class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Sách</td>
+                                <td>Quyển Sách</td>
+                                <td>
+                                    Hạn Trả (<em><strong>chờ duyệt</strong></em
+                                    >)
+                                </td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of cart">
+                                <td>
+                                    <div class="book-container row">
+                                        <div class="col col-4">
+                                            <img
+                                                class="book-image"
+                                                [src]="item.book.image"
+                                            />
+                                        </div>
+                                        <div
+                                            class="col col-8 book-info-container"
+                                        >
+                                            <h4>{{ item.book.ten }}</h4>
+                                            <h5>{{ item.book.tacGia }}</h5>
+                                            <p>{{ item.book.category.name }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="book-info-container">
+                                        <h4>ID: {{ item.id }}</h4>
+                                        <h5>
+                                            Tình Trạng:
+                                            {{ tinhTrangEnum[item.tinhTrang] }}
+                                        </h5>
+                                        <h5>
+                                            Số lần mượn:
+                                            {{ item.soLanMuon }}
+                                        </h5>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input
+                                            [formControlName]="item.id"
+                                            type="text"
+                                            class="form-control"
+                                            matInput
+                                            [matDatepicker]="picker"
+                                            readonly
+                                        />
+                                        <mat-datepicker-toggle
+                                            matIconSuffix
+                                            [for]="picker"
+                                        ></mat-datepicker-toggle>
+
+                                        <mat-datepicker
+                                            [startAt]="todayDate"
+                                            #picker
+                                        ></mat-datepicker>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col col-4 phieumuon-container">
+            <div class="row header-info">
+                <div class="col col-12">
+                    <h1>Phiếu Mượn</h1>
+                </div>
+            </div>
+            <div class="row phieumuon-info-container">
+                <div class="col col-12 number">
+                    <h4>Số lượng: {{ numberOfBooks }}</h4>
+                </div>
+                <div class="form-container" [formGroup]="form">
+                    <div class="form-group col col-12">
+                        <label>Ghi Chú</label>
+                        <input
+                            type="text"
+                            formControlName="note"
+                            class="form-control"
+                            [ngClass]="{
+                                'is-invalid':
+                                    submitted && formControls['note'].errors
+                            }"
+                        />
+                    </div>
+                    <div class="form-group col col-12">
+                        <label>Ngày Đến Mượn</label>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                formControlName="ngayMuon"
+                                class="form-control"
+                                [ngClass]="{
+                                    'is-invalid':
+                                        submitted &&
+                                        formControls['ngayMuon'].errors
+                                }"
+                                matInput
+                                [matDatepicker]="picker"
+                                readonly
+                            />
+                            <mat-datepicker-toggle
+                                matIconSuffix
+                                [for]="picker"
+                            ></mat-datepicker-toggle>
+                            <div
+                                *ngIf="
+                                    submitted && formControls['ngayMuon'].errors
+                                "
+                                class="invalid-feedback"
+                            >
+                                <div *ngIf="formControls['ngayMuon'].errors">
+                                    Ngày đến mượn không được trống
+                                </div>
+                            </div>
+
+                            <mat-datepicker #picker></mat-datepicker>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col col-12 note-save">
+                            <em
+                                >Sau khi được duyệt, vui lòng đến thư viện để
+                                nhận sách</em
+                            >
+                        </div>
+                        <div class="col col-12 mt-2">
+                            <div class="d-flex justify-content-center">
+                                <button
+                                    (click)="save()"
+                                    class="btn btn-primary"
+                                >
+                                    Gửi Phiếu Mượn
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

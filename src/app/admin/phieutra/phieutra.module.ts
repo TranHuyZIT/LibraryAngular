@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { PhieuTraComponent } from './phieutra.component';
 import { PhieuTraRoutingModule } from './phieutra-router.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
     imports: [
@@ -20,6 +21,9 @@ import { PhieuTraRoutingModule } from './phieutra-router.module';
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
+        MatSelectModule,
+        NgxMatSelectSearchModule
+
     ],
     exports: [
         PhieuTraComponent

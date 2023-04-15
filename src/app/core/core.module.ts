@@ -14,6 +14,7 @@ import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
 import { CartService } from './services/cart.service';
+import { BookItemService } from './services/bookitem.service';
 import { LibrarianService } from './services/librarian.service';
 import { PhieuTraService } from './services/phieutra.service';
 
@@ -38,7 +39,7 @@ import { PhieuTraService } from './services/phieutra.service';
         JwtService,
         CategoryService,
         BookService,
-        CartService,
+        BookItemService,
         LibrarianService,
         PhieuTraService
     ],
