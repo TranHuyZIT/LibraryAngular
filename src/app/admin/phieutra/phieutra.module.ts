@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PhieuTraComponent } from './phieutra.component';
 import { PhieuTraRoutingModule } from './phieutra-router.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
     imports: [
@@ -26,10 +27,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
     ],
     exports: [
-        PhieuTraComponent
+        PhieuTraComponent, SelectComponent
     ],
     declarations: [
-        PhieuTraComponent
+        PhieuTraComponent, SelectComponent
     ],
 })
 export class PhieuTraModule {}
