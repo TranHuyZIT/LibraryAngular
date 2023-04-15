@@ -19,6 +19,7 @@ import config from '../../config/config';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { ReaderService } from './reader.service';
+import { LibrarianService } from './librarian.service';
 
 @Injectable({
     providedIn: 'root',
@@ -46,7 +47,8 @@ export class AuthService {
         private apiService: ApiService,
         private jwtService: JwtService,
         private router: Router,
-        private readerService: ReaderService
+        private readerService: ReaderService,
+        private librarianService: LibrarianService
     ) {}
 
     // Load user info with token in local storage (if any)
@@ -63,6 +65,14 @@ export class AuthService {
                         },
                         error: (err) => {},
                     });
+                    if (data.role === 'ADMIN') {
+                        that.librarianService.getOne(data.id).subscribe({
+                            next: (librarian) => {
+                                that.currentLibrarianSubject.next(librarian);
+                            },
+                            error: (err) => {},
+                        });
+                    }
                 },
                 error(err) {
                     that.purgeAuth();
