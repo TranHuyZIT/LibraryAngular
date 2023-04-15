@@ -1,0 +1,15 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.dropdown-menu {
+    position: absolute;
+    background-color: white;
+    right: 0;
+    color: black;
+    display: none;
+    width: fit-content;
+    width: 350px;
+}
+.message-container {
+    min-width: fit-content;
+}
