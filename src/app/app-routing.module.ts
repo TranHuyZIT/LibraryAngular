@@ -65,6 +65,14 @@ const routes: Routes = [
                         (m) => m.LibrarianModule
                     ),
             },
+            {
+                path: 'phieutra',
+                canActivate: [],
+                loadChildren: () =>
+                    import('./admin/phieutra/phieutra.module').then(
+                        (m) => m.PhieuTraModule
+                    ),
+            },
         ],
     },
 ];

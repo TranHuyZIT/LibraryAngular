@@ -25,12 +25,14 @@ export class PhieuGiaHanComponent implements OnInit {
         private dialog: MatDialog,
         private toastrService: ToastrService
     ) {}
+
     ngOnInit(): void {
         this.form = this.fb.group({
             ngayGHan: ['', Validators.required],
             note: [''],
         });
         this.detailForm = this.fb.group({});
+
     }
     itemsToRequest: any[] = [];
     numberOfBooks = 0;
