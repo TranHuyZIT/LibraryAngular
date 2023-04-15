@@ -66,13 +66,19 @@ const routes: Routes = [
                     ),
             },
             {
-                path: 'phieutra',
-                canActivate: [],
+                path: 'phieumuon',
                 loadChildren: () =>
-                    import('./admin/phieutra/phieutra.module').then(
-                        (m) => m.PhieuTraModule
+                    import('./admin/phieumuon/phieumuon.module').then(
+                        (m) => m.PhieuMuonModule
                     ),
             },
+            {
+              path: 'phieutra',
+                  canActivate: [],
+                  loadChildren: () =>
+                      import('./admin/phieutra/phieutra.module').then(
+                          (m) => m.PhieuTraModule)
+            }
         ],
     },
 ];

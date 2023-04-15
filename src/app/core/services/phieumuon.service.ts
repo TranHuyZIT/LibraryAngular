@@ -9,4 +9,18 @@ export class PhieuMuonService {
     customerSave(body: any) {
         return this.apiService.post('/phieumuon', body);
     }
+    getAll(filters?: any) {
+        const queries = new HttpParams()
+            .set('pageNo', filters?.pageNo || '')
+            .set('sortBy', filters?.sortBy || '')
+            .set('pageSize', filters?.pageSize || '')
+            .set('reverse', !!filters?.reverse);
+        return this.apiService.get('/librarian', queries);
+    }
+    add(body: any) {
+        return this.apiService.post('/librarian', body);
+    }
+    delete(id: any) {
+        return this.apiService.delete(`/librarian/${id}`)
+    }
 }
