@@ -13,7 +13,7 @@
                 </div>
                 <div class="form-container" [formGroup]="form">
                     <div class="form-group col col-12">
-                        <label>Ghi Chú</label>
+                        <label>Lý do</label>
                         <input
                             type="text"
                             formControlName="note"
@@ -57,8 +57,8 @@
                     <div class="row mt-3">
                         <div class="col col-12 note-save">
                             <em
-                                >Sau khi được duyệt, sách bạn đã mượn sẽ được
-                                gia hạn
+                                >Nếu như không được duyệt, khi đến hạn bạn vẫn
+                                sẽ bị xem như nộp muộn
                             </em>
                         </div>
                         <div class="col col-12 mt-2">
@@ -83,7 +83,7 @@
             </div>
             <div class="row mt-3 cart-details-container">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table [formGroup]="detailForm" class="table">
                         <thead>
                             <tr>
                                 <td>Sách</td>
@@ -137,6 +137,12 @@
                                             matInput
                                             [matDatepicker]="picker"
                                             readonly
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    submitted &&
+                                                    formControlsDetail[item.id]
+                                                        ?.errors
+                                            }"
                                         />
                                         <mat-datepicker-toggle
                                             matIconSuffix
@@ -146,6 +152,25 @@
                                         <mat-datepicker
                                             #picker
                                         ></mat-datepicker>
+                                        <div
+                                            *ngIf="
+                                                submitted &&
+                                                formControlsDetail[item.id]
+                                                    ?.errors
+                                            "
+                                            class="invalid-feedback"
+                                        >
+                                            <div
+                                                [@headshake]="headshake"
+                                                *ngIf="
+                                                    formControlsDetail[item.id]
+                                                        ?.errors['required']
+                                                "
+                                            >
+                                                Ngày gia hạn mới không được
+                                                trống
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                                 <td>
@@ -154,7 +179,10 @@
                             </tr>
                             <tr>
                                 <td colspan="3">
-                                    <button class="btn btn-primary">
+                                    <button
+                                        (click)="openSelectionDialog()"
+                                        class="btn btn-primary"
+                                    >
                                         Thêm sách xin gia hạn
                                     </button>
                                 </td>

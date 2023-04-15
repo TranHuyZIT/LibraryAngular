@@ -45,10 +45,17 @@ export class CartService {
         this.currentCartSubject.next(currentCart);
     }
 
-    destroyItem(index: any) {
+    destroyItem(id: any) {
         const currentCart = [...this.getCart()];
-        const newCart = currentCart.splice(index, 1);
-        window.localStorage['cart'] = JSON.stringify(newCart);
-        this.currentCartSubject.next(newCart);
+        const index = currentCart.findIndex((e) => e.id == id);
+
+        if (index == -1) return;
+        currentCart.splice(index, 1);
+
+        window.localStorage['cart'] = JSON.stringify(currentCart);
+        this.currentCartSubject.next(currentCart);
+    }
+    removeAll() {
+        window.localStorage['cart'] = JSON.stringify([]);
     }
 }

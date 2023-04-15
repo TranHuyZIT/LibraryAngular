@@ -19,7 +19,10 @@ import { PhieuMuonService } from './services/phieumuon.service';
 import { ReaderService } from './services/reader.service';
 
 import { CartService } from './services/cart.service';
-
+import { BookItemService } from './services/bookitem.service';
+import { LibrarianService } from './services/librarian.service';
+import { PhieuTraService } from './services/phieutra.service';
+import { PhieuMuonService } from './services/phieumuon.service';
 
 @NgModule({
     imports: [CommonModule, RouterModule],
@@ -42,12 +45,11 @@ import { CartService } from './services/cart.service';
         JwtService,
         CategoryService,
         BookService,
-
-        ReaderService,
-
-        CartService,
-
+        BookItemService,
         LibrarianService,
+        PhieuTraService
+        ReaderService,
+        CartService,
         PhieuMuonService,
     ],
     declarations: [],

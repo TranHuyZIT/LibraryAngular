@@ -6,6 +6,8 @@ import { PhieuGiaHanRoutingModule } from './phieugiahan-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SelectComponent } from './select/select.component';
 
 @NgModule({
     imports: [
@@ -15,8 +17,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         ReactiveFormsModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatDialogModule,
     ],
-    exports: [PhieuGiaHanComponent],
-    declarations: [PhieuGiaHanComponent],
+    exports: [PhieuGiaHanComponent, SelectComponent],
+    declarations: [PhieuGiaHanComponent, SelectComponent],
 })
 export class PhieuGiaHanModule {}

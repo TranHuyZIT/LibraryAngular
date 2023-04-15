@@ -5,6 +5,7 @@ import { headShake } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CartService } from 'src/app/core/services/cart.service';
+import { PhieuMuonService } from 'src/app/core/services/phieumuon.service';
 import TinhTrangEnum, {
     convertTinhTrangValueToKey,
 } from 'src/app/enum/tinhtrang.enum';
@@ -23,7 +24,8 @@ export class CartComponent implements OnInit {
         private cartService: CartService,
         private fb: FormBuilder,
         private authService: AuthService,
-        private toasrtService: ToastrService
+        private toasrtService: ToastrService,
+        private phieuMuonService: PhieuMuonService
     ) {}
     ngOnInit(): void {
         this.authService.currentCustomer.subscribe((reader) => {
@@ -55,12 +57,43 @@ export class CartComponent implements OnInit {
     }
     save() {
         this.submitted = true;
-        if (!this.form.valid || this.numberOfBooks == 0) {
+        if (!this.form.valid) {
             this.toasrtService.error('Vui lòng kiểm tra lại thông tin');
+            return;
+        }
+        if (this.numberOfBooks == 0) {
+            this.toasrtService.error('Giỏ sách đang trống');
             return;
         }
         const bodyRequest = {
             ...this.form.value,
+            ngayMuon: new Date(this.form.value.ngayMuon).toISOString(),
+            readerId: this.currentReader.id,
+            chitiets: this.cart.map((e: any) => ({
+                tinhTrang: e.tinhTrang,
+                hanTra: new Date(this.dates.value[e.id]).toISOString(),
+                bookItemId: e.id,
+            })),
         };
+        this.phieuMuonService.customerSave(bodyRequest).subscribe({
+            next: (data) => {
+                this.toasrtService.success(
+                    'Gửi Phiếu Mượn Thành Công, Vui Lòng Đến Thư Viện Khi Được Duyệt'
+                );
+                this.resetCart();
+                this.submitted = false;
+            },
+            error: (err) => {
+                this.toasrtService.error(err.message);
+            },
+        });
+    }
+    removeCartItem(id: any) {
+        this.cartService.destroyItem(id);
+        this.cart = this.cart.filter((e: any) => e.id !== id);
+    }
+    resetCart() {
+        this.cartService.removeAll();
+        this.ngOnInit();
     }
 }
