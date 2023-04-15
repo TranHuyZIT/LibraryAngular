@@ -7,6 +7,8 @@ import { SelectComponent } from './select/select.component';
 import { ToastrService } from 'ngx-toastr';
 import { transition, trigger, useAnimation } from '@angular/animations';
 import { headShake } from 'ng-animate';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { PhieuGiaHanService } from 'src/app/core/services/phieugiahan.service';
 
 @Component({
     templateUrl: 'phieugiahan.component.html',
@@ -23,7 +25,9 @@ export class PhieuGiaHanComponent implements OnInit {
         private fb: FormBuilder,
         private bookService: BookService,
         private dialog: MatDialog,
-        private toastrService: ToastrService
+        private toastrService: ToastrService,
+        private authService: AuthService,
+        private phieugiahanService: PhieuGiaHanService
     ) {}
 
     ngOnInit(): void {
@@ -32,11 +36,14 @@ export class PhieuGiaHanComponent implements OnInit {
             note: [''],
         });
         this.detailForm = this.fb.group({});
-
+        this.authService.currentCustomer.subscribe((reader) => {
+            this.currentReader = reader;
+        });
     }
     itemsToRequest: any[] = [];
     numberOfBooks = 0;
     tinhTrangEnum = TinhTrangEnum;
+    currentReader: any;
 
     // detail
     openSelectionDialog() {
@@ -69,6 +76,30 @@ export class PhieuGiaHanComponent implements OnInit {
             this.toastrService.error('Vui lòng kiểm tra lại thông tin');
             return;
         }
+        const bodyRequest = {
+            ...this.form.value,
+            readerId: this.currentReader.id,
+            chitiets: this.itemsToRequest.map((item: any) => {
+                return {
+                    tinhTrang: item.tinhTrang,
+                    hanTra: this.detailForm.value[item.id],
+                    bookItemId: item.id,
+                };
+            }),
+        };
+        this.phieugiahanService.save(bodyRequest).subscribe({
+            next: (data) => {
+                this.toastrService.success('Gửi phiếu xin gia hạn thành công');
+                this.resetPage();
+            },
+            error: (err) => {
+                this.toastrService.error(err.message);
+            },
+        });
+    }
+    resetPage() {
+        this.itemsToRequest = [];
+        this.ngOnInit();
     }
     get formControls() {
         return this.form.controls;

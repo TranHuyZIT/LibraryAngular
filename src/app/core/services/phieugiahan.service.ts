@@ -6,5 +6,7 @@ import { HttpParams } from '@angular/common/http';
 @Injectable()
 export class PhieuGiaHanService {
     constructor(private apiService: ApiService, private router: Router) {}
-    save() {}
+    save(body: any) {
+        return this.apiService.post('/phieughan', body);
+    }
 }
