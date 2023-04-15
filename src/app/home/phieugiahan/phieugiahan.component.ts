@@ -69,6 +69,9 @@ export class PhieuGiaHanComponent implements OnInit {
             this.toastrService.error('Vui lòng kiểm tra lại thông tin');
             return;
         }
+        const bodyRequest = {
+            ...this.form.value,
+        };
     }
     get formControls() {
         return this.form.controls;
