@@ -33,6 +33,9 @@ export class AuthService {
     public currentUser = this.currentUserSubject
         .asObservable()
         .pipe(distinctUntilChanged());
+    private currentLibrarianSubject = new BehaviorSubject<any>({} as any);
+    public currentLibrarian = this.currentLibrarianSubject.asObservable();
+
     private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
