@@ -22,6 +22,7 @@ import { CartService } from './services/cart.service';
 import { BookItemService } from './services/bookitem.service';
 import { PhieuTraService } from './services/phieutra.service';
 import { PhieuGiaHanService } from './services/phieugiahan.service';
+import { LogService } from './services/log.service';
 
 @NgModule({
     imports: [CommonModule, RouterModule],
@@ -51,6 +52,7 @@ import { PhieuGiaHanService } from './services/phieugiahan.service';
         CartService,
         PhieuMuonService,
         PhieuGiaHanService,
+        LogService,
     ],
     declarations: [],
 })
