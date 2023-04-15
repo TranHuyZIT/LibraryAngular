@@ -45,7 +45,7 @@ import { PhieuMuonService } from './services/phieumuon.service';
         BookService,
         BookItemService,
         LibrarianService,
-        PhieuTraService
+        PhieuTraService,
         ReaderService,
         CartService,
         PhieuMuonService,

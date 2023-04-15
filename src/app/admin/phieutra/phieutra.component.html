@@ -86,20 +86,21 @@
                         <mat-form-field>
                             <mat-select
                                 formControlName="readerID"
-                                placeholder="Mã độc giả"
+                                placeholder="Độc giả"
                                 #singleSelect
                             >
                                 <mat-option>
                                     <ngx-mat-select-search
+                                        placeholderLabel="Find name..."
                                         [formControl]="search"
                                     ></ngx-mat-select-search>
                                 </mat-option>
 
                                 <mat-option
-                                    *ngFor="let phieutra of listPhieuTra"
-                                    [value]="phieutra.id"
+                                    *ngFor="let reader of listPhieuTra"
+                                    [value]="reader.id"
                                 >
-                                    {{ phieutra.name }}
+                                    {{ reader.name }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -112,24 +113,98 @@
                 <h2>Chi Tiết Phiếu Trả</h2>
             </div>
             <div class="table-responsive navbar-text phieumuon-container">
-                <table class="table phieutra-table">
+                <table [formGroup]="detailForm" class="table phieutra-table">
                     <thead>
                         <tr>
                             <td class=".text-center"><b>Sách</b></td>
                             <td class=".text-center"><b>Tình trạng</b></td>
                             <td class=".text-center"><b>Ngày trả</b></td>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of listPhieuTra">
+                        <tr *ngFor="let item of itemsToRequest">
                             <td>
-                                <div>item.</div>
+                                <div class="book-container row">
+                                    <div class="col col-4">
+                                        <img
+                                            class="book-image"
+                                            [src]="item.book.image"
+                                        />
+                                    </div>
+                                    <div class="col col-8 book-info-container">
+                                        <h4>{{ item.book.ten }}</h4>
+                                        <h5>{{ item.book.tacGia }}</h5>
+                                        <p>{{ item.book.category.name }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="book-info-container">
+                                    <h4>ID: {{ item.id }}</h4>
+                                    <h5>
+                                        Tình Trạng:
+                                        {{ tinhTrangEnum[item.tinhTrang] }}
+                                    </h5>
+                                    <h5>
+                                        Số lần mượn:
+                                        {{ item.soLanMuon }}
+                                    </h5>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input
+                                        [formControlName]="item.id"
+                                        type="text"
+                                        class="form-control"
+                                        matInput
+                                        [matDatepicker]="picker"
+                                        readonly
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                submitted &&
+                                                formControlsDetail[item.id]
+                                                    ?.errors
+                                        }"
+                                    />
+                                    <mat-datepicker-toggle
+                                        matIconSuffix
+                                        [for]="picker"
+                                    ></mat-datepicker-toggle>
+
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <div
+                                        *ngIf="
+                                            submitted &&
+                                            formControlsDetail[item.id]?.errors
+                                        "
+                                        class="invalid-feedback"
+                                    >
+                                        <div
+                                            [@headshake]="headShake"
+                                            *ngIf="
+                                                formControlsDetail[item.id]
+                                                    ?.errors['required']
+                                            "
+                                        >
+                                            Ngày gia hạn mới không được trống
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">Xóa</button>
                             </td>
                         </tr>
+
                         <tr>
                             <td colspan="3">
-                                <button class="btn btn-primary">
-                                    Thêm phiếu trả
+                                <button
+                                    class="btn btn-primary"
+                                    (click)="openSelectionDialog()"
+                                >
+                                    Thêm sách để trả
                                 </button>
                             </td>
                         </tr>
