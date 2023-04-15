@@ -13,10 +13,14 @@ import { RouterModule } from '@angular/router';
 import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
+
+import { ReaderService } from './services/reader.service';
+
 import { CartService } from './services/cart.service';
 import { BookItemService } from './services/bookitem.service';
 import { LibrarianService } from './services/librarian.service';
 import { PhieuTraService } from './services/phieutra.service';
+import { PhieuMuonService } from './services/phieumuon.service';
 
 @NgModule({
     imports: [CommonModule, RouterModule],
@@ -42,6 +46,9 @@ import { PhieuTraService } from './services/phieutra.service';
         BookItemService,
         LibrarianService,
         PhieuTraService
+        ReaderService,
+        CartService,
+        PhieuMuonService,
     ],
     declarations: [],
 })

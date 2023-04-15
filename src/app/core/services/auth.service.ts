@@ -18,6 +18,7 @@ import { catchError, distinctUntilChanged, map } from 'rxjs/operators';
 import config from '../../config/config';
 import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
+import { ReaderService } from './reader.service';
 
 @Injectable({
     providedIn: 'root',
@@ -26,7 +27,9 @@ export class AuthService {
     baseURL: string = config.ENDPOINT;
     private currentUserSubject = new BehaviorSubject<any>({} as any);
     private currentCustomerSubject = new BehaviorSubject<any>({});
-    public currentCustomer = this.currentCustomerSubject.asObservable();
+    public currentCustomer = this.currentCustomerSubject
+        .asObservable()
+        .pipe(distinctUntilChanged());
     public currentUser = this.currentUserSubject
         .asObservable()
         .pipe(distinctUntilChanged());
@@ -39,7 +42,8 @@ export class AuthService {
     constructor(
         private apiService: ApiService,
         private jwtService: JwtService,
-        private router: Router
+        private router: Router,
+        private readerService: ReaderService
     ) {}
 
     // Load user info with token in local storage (if any)
@@ -50,6 +54,12 @@ export class AuthService {
             this.currentUser$.subscribe({
                 next(data) {
                     that.setAuth(data);
+                    that.readerService.getOne(data.id).subscribe({
+                        next: (reader) => {
+                            that.currentCustomerSubject.next(reader);
+                        },
+                        error: (err) => {},
+                    });
                 },
                 error(err) {
                     that.purgeAuth();
