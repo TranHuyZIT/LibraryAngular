@@ -245,6 +245,7 @@
                             <input
                                 min="0"
                                 [ngModel]="numberBorrowed"
+                                (ngModelChange)="onNumberBorrowChange($event)"
                                 type="number"
                                 class="form-control"
                             />

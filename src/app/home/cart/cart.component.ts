@@ -80,15 +80,20 @@ export class CartComponent implements OnInit {
                 this.toasrtService.success(
                     'Gửi Phiếu Mượn Thành Công, Vui Lòng Đến Thư Viện Khi Được Duyệt'
                 );
+                this.resetCart();
+                this.submitted = false;
             },
             error: (err) => {
                 this.toasrtService.error(err.message);
             },
         });
     }
-
     removeCartItem(id: any) {
         this.cartService.destroyItem(id);
         this.cart = this.cart.filter((e: any) => e.id !== id);
+    }
+    resetCart() {
+        this.cartService.removeAll();
+        this.ngOnInit();
     }
 }
