@@ -1,0 +1,42 @@
+<div class="container-lg p-5 select-dialog-container rounded">
+    <div class="row">
+        <div class="col col-12">
+            <h1>Chọn Sách Xin Mượn</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td class="text-center">Sách</td>
+                        <td class="text-center">Quyển Sách</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let option of options">
+                        <td class="text-center">{{ option.book.ten }}</td>
+                        <td>
+                            <div class="book-info-container">
+                                <h4 class="text-center">ID: {{ option.id }}</h4>
+                                <h5 class="text-center">
+                                    Tình Trạng:
+                                    {{ tinhTrangEnum[option.tinhTrang] }}
+                                </h5>
+                            </div>
+                        </td>
+                        <td>
+                            <button
+                                (click)="selectAndClose(option)"
+                                class="btn btn-primary"
+                            >
+                                Thêm
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

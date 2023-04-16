@@ -7,10 +7,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectComponent } from './select/select.component';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
-    imports: [CommonModule, SharedModule, PhieuMuonRoutingModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, FormsModule, ReactiveFormsModule],
-    exports: [PhieuMuonComponent],
-    declarations: [PhieuMuonComponent],
+    imports: [CommonModule, SharedModule, PhieuMuonRoutingModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, FormsModule, ReactiveFormsModule, MatSelectModule, NgxMatSelectSearchModule],
+    exports: [PhieuMuonComponent, SelectComponent],
+    declarations: [PhieuMuonComponent, SelectComponent],
 })
 export class PhieuMuonModule {}
