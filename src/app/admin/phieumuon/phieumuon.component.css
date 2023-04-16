@@ -5,3 +5,25 @@
     padding-right: 8px;
     border-right: 1px dashed #333;
 }
+:root {
+    --gradient: linear-gradient(
+        to left top,
+        #dd2476 10%,
+        #ff512f 90%
+    ) !important;
+}
+
+body {
+    background: #111 !important;
+}
+
+.card {
+    background: #222;
+    border: 1px solid #dd2476;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 2rem;
+}
+
+.phieumuon-container {
+    margin-top: 200px;
+}

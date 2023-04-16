@@ -57,6 +57,33 @@ export class PhieuMuonComponent
                 });
                 this.curentuser = user;
             }
+import { Component, OnInit } from '@angular/core';
+import { PhieuMuonService } from 'src/app/core/services/phieumuon.service';
+import { ToastrService } from 'ngx-toastr';
+@Component({
+    selector: 'phieumuon-component',
+    templateUrl: 'phieumuon.component.html',
+    styleUrls: ['phieumuon.component.css'],
+})
+export class PhieuMuonComponent implements OnInit {
+    constructor(
+        private phieumuonService: PhieuMuonService,
+        private toasrtService: ToastrService
+    ) {}
+
+    ngOnInit(): void {
+        this.phieumuonService.getAll().subscribe({
+            next: (data) => {
+                this.phieumuonList = data.content;
+                console.log(data);
+            },
+            error: (err) => {
+                this.toasrtService.error(err.message);
+            },
+        });
+    }
+    phieumuonList: any[] = [];
+}
 
         });
     }

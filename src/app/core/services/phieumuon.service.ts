@@ -21,6 +21,6 @@ export class PhieuMuonService {
         return this.apiService.post('/librarian', body);
     }
     delete(id: any) {
-        return this.apiService.delete(`/librarian/${id}`)
+        return this.apiService.delete(`/librarian/${id}`);
     }
 }

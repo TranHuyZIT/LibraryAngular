@@ -16,6 +16,7 @@ import { ImageService } from './services/image.service';
 import { LibrarianService } from './services/librarian.service';
 import { PhieuMuonService } from './services/phieumuon.service';
 
+// <<<<<<< HEAD
 import { ReaderService } from './services/reader.service';
 
 import { CartService } from './services/cart.service';

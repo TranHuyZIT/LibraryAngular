@@ -1,18 +1,42 @@
 <header-nav></header-nav>
-<div class="container-lg pm-margin-container shadow rounded"
-[formGroup]="form"
->
+<div class="container-lg pm-margin-container shadow rounded" [formGroup]="form">
     <div class="col-6 info-container">
-        <h5>Id thủ thư: {{librarianId}}</h5>
-        <h5>Ngày mượn: </h5>
+        <h5>Id thủ thư: {{ librarianId }}</h5>
+        <h5>Ngày mượn:</h5>
         <div class="input-group">
-                <input type="text" class="form-control">
+            <input type="text" class="form-control" />
         </div>
         <h5>Ghi chú:</h5>
         <div class="input-group">
             <textarea class="form-control"></textarea>
         </div>
     </div>
-        
+
     <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+</div>
+<!-- <header-nav></header-nav> -->
+
+<div class="container mx-auto mt-4 phieumuon-container">
+    <div class="row">
+        <!-- <div class="col-md-4"> -->
+        <div
+            class="card"
+            style="width: 18rem"
+            *ngFor="let phieumuon of phieumuonList"
+        >
+            <!-- <img
+                    src="https://i.imgur.com/ZTkt4I5.jpg"
+                    class="card-img-top"
+                    alt="..."
+                /> -->
+            <div class="card-body">
+                <h5 class="card-title">{{ phieumuon.id }}</h5>
+                <p class="card-text">ID Reader: {{ phieumuon.reader.id }}</p>
+                <p class="card-text">Tên: {{ phieumuon.reader.name }}</p>
+                <p class="card-text">Note: {{ phieumuon.note }}</p>
+                <p class="card-text">Ngày mượn: {{ phieumuon.ngayMuon }}</p>
+            </div>
+        </div>
+    </div>
+    <!-- </div> -->
 </div>

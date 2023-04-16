@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core'
+import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PhieuMuonComponent } from './phieumuon.component';
 import { PhieuMuonRoutingModule } from './phieumuon-routing.module';
@@ -9,7 +9,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [CommonModule, SharedModule, PhieuMuonRoutingModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, FormsModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        SharedModule,
+        PhieuMuonRoutingModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
     exports: [PhieuMuonComponent],
     declarations: [PhieuMuonComponent],
 })
