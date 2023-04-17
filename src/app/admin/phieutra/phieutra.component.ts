@@ -6,7 +6,7 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { headShake} from 'ng-animate';
+import { headShake } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BookItemService } from 'src/app/core/services/bookitem.service';
@@ -17,8 +17,7 @@ import { ReaderService } from 'src/app/core/services/reader.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectComponent } from './select/select.component';
 import TinhTrangEnum from 'src/app/enum/tinhtrang.enum';
-
-
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
     selector: 'phieutra',
@@ -32,6 +31,8 @@ export class PhieuTraComponent implements OnInit {
     detailForm: FormGroup<{}>;
     headShake: any;
     search: FormControl<string>;
+    dialogRef: any;
+    currentLibrarian: any;
     constructor(
         private toasrtService: ToastrService,
         private phieutraservice: PhieuTraService,
@@ -40,26 +41,27 @@ export class PhieuTraComponent implements OnInit {
         private librarianService: LibrarianService,
         private bookItemService: BookItemService,
         private readerService: ReaderService,
-        private dialog: MatDialog,
+        private dialog: MatDialog
     ) {}
     ngOnInit(): void {
         this.form = this.fb.group({
             ngayTra: ['', Validators.required],
             note: [''],
-            readerID: ['', Validators.required],
+            readerId: ['', Validators.required],
             isChecked: [true],
         });
+        this.detailForm = this.fb.group({});
         this.authService.currentUser.subscribe({
             next: (user) => {
                 this.librarianService.getOne(user.id).subscribe({
                     next: (data) => {
-                        this.librarianId = data.name;
+                        this.currentLibrarian = data;
                     },
                     error: (err) => {
                         this.toasrtService.error(err.message);
                     },
                 });
-                this.curentuser = user;
+                this.currentuser = user;
             },
         });
         this.search = new FormControl('');
@@ -73,7 +75,7 @@ export class PhieuTraComponent implements OnInit {
                     next: (data) => {
                         console.log(data.content);
 
-                        this.listPhieuTra = data.content;
+                        this.listReader = data.content;
                         console.log(data);
                     },
                     error: (err) => {
@@ -81,8 +83,10 @@ export class PhieuTraComponent implements OnInit {
                     },
                 });
         });
+        this.authService.currentCustomer.subscribe((reader) => {
+            this.currentReader = reader;
+        });
         // detail
-    
     }
     openSelectionDialog() {
         const dialogRef = this.dialog.open(SelectComponent);
@@ -109,9 +113,11 @@ export class PhieuTraComponent implements OnInit {
     submitted = false;
     librarianId: any;
     curentuser: any;
-    listPhieuTra: any[] = [];
+    listReader: any[] = [];
     itemsToRequest: any[] = [];
     tinhTrangEnum = TinhTrangEnum;
+    currentuser: any;
+    currentReader: any;
 
     get formValues() {
         return this.form.value;
@@ -121,5 +127,40 @@ export class PhieuTraComponent implements OnInit {
     }
     get formControlsDetail() {
         return this.detailForm.controls;
+    }
+    save() {
+        this.submitted = true;
+        if (!this.form.valid || !this.detailForm.valid) {
+            this.toasrtService.error('Vui lòng kiểm tra lại thông tin');
+            return;
+        }
+        const bodyRequest = {
+            ...this.formValues,
+                librarianId: this.currentLibrarian.id,
+                chitiets: this.itemsToRequest.map((e: any) => {
+                    return {
+                        tinhTrang: e.tinhTrang,
+                        bookItemId: e.id,
+                    };
+                }),
+        }
+        this.phieutraservice.save(bodyRequest).subscribe({
+            next: (data) => {
+                    this.toasrtService.success('Gửi phiếu trả thành công');
+                    this.resetPage();
+                },
+            error: (err) => {
+                    this.toasrtService.error(err.message);
+                },    
+        })
+            
+            // .subscribe({
+            //     
+            //     
+            // });
+    }
+    resetPage() {
+        this.itemsToRequest = [];
+        this.ngOnInit();
     }
 }

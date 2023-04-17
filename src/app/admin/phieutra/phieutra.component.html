@@ -4,7 +4,7 @@
         <div class="row header-info">
             <h1>Phiếu Trả</h1>
         </div>
-        <h5>Tên thủ thư: {{ librarianId }}</h5>
+        <h5>Tên thủ thư: {{ currentuser.name }}</h5>
         <div class="col-6 info-container">
             <div class="row">
                 <div class="form-group col col-6">
@@ -47,37 +47,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-6">
-                <div class="input-group">
-                    <!-- <mat-form-field>
-                    <mat-select
-                        placeholder="Chọn thể loại"
-                        [value]="formValues.categoryId"
-                        formControlName="categoryId"
-                    >
-                        <mat-option
-                            *ngFor="
-                                let category of categoryOptions
-                            "
-                            [value]="category.id"
-                        >
-                            {{ category.name }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error
-                        [@headshake]="headshake"
-                        *ngIf="
-                            submitted &&
-                            formControls['categoryId'].errors
-                        "
-                        class="invalid-feedback"
-                    >s
-                        Thể loại không được trống
-                    </mat-error>
-                </mat-form-field> -->
-                </div>
-            </div>
         </div>
         <div class="col-6">
             <div class="form-group col-12">
@@ -85,7 +54,7 @@
                     <div class="input-group mb-3">
                         <mat-form-field>
                             <mat-select
-                                formControlName="readerID"
+                                formControlName="readerId"
                                 placeholder="Độc giả"
                                 #singleSelect
                             >
@@ -97,13 +66,21 @@
                                 </mat-option>
 
                                 <mat-option
-                                    *ngFor="let reader of listPhieuTra"
+                                    *ngFor="let reader of listReader"
                                     [value]="reader.id"
                                 >
                                     {{ reader.name }}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
+                    </div>
+                    <div class="d-flex justify-content-left">
+                        <button
+                            (click)="save()"
+                            class="btn btn-primary"
+                        >
+                            Gửi Phiếu Trả
+                        </button>
                     </div>
                 </div>
             </div>
