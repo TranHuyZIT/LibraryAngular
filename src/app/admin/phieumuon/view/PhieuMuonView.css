@@ -1,0 +1,15 @@
+.heading {
+    font-family: 'Lobster', cursive;
+}
+.page-container {
+    margin-top: 120px;
+}
+th span {
+    visibility: hidden;
+}
+th.active span {
+    visibility: visible;
+}
+.mat-mdc-form-field {
+    width: 100% !important;
+}

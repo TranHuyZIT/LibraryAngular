@@ -28,6 +28,7 @@
                         </td>
                         <td>
                             <button
+                                [disabled]="!option.trangThai"
                                 (click)="selectAndClose(option)"
                                 class="btn btn-primary"
                             >

@@ -1,0 +1,122 @@
+<header-admin-nav></header-admin-nav>
+<div class="container page-container">
+    <div class="row">
+        <div class="col col-12">
+            <h1 class="heading">Phiếu Mượn</h1>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col col-4">
+            <mat-form-field class="col">
+                <mat-label>Tìm theo độc giả</mat-label>
+                <mat-select
+                    [formControl]="readerIdControl"
+                    placeholder="Độc giả"
+                    #singleSelect
+                >
+                    <mat-option>
+                        <ngx-mat-select-search
+                            placeholderLabel="Tìm tên..."
+                            [formControl]="search"
+                        ></ngx-mat-select-search>
+                    </mat-option>
+
+                    <mat-option
+                        *ngFor="let reader of listReader"
+                        [value]="reader.id"
+                    >
+                        {{ reader.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col col-2">
+            <button (click)="navigateToEdit('add')" class="btn btn-primary">
+                Lập Phiếu
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th
+                            [class.active]="sortBy === 'id'"
+                            (click)="serSortBy('id')"
+                            scope="col"
+                        >
+                            Mã Phiếu <span [hidden]="reverse">▼</span
+                            ><span [hidden]="!reverse">▲</span>
+                        </th>
+                        <th
+                            [class.active]="sortBy === 'ngayMuon'"
+                            (click)="serSortBy('ngayMuon')"
+                            scope="col"
+                        >
+                            Ngày Mượn<span [hidden]="reverse">▼</span
+                            ><span [hidden]="!reverse">▲</span>
+                        </th>
+                        <th>Thủ Thư</th>
+                        <th>Độc Giả</th>
+                        <th
+                            [class.active]="sortBy === 'updatedAt'"
+                            (click)="serSortBy('updatedAt')"
+                            scope="col"
+                        >
+                            Cập Nhật Lần Cuối<span [hidden]="reverse">▼</span
+                            ><span [hidden]="!reverse">▲</span>
+                        </th>
+                        <th
+                            [class.active]="sortBy === 'isChecked'"
+                            (click)="serSortBy('isChecked')"
+                            scope="col"
+                        >
+                            Duyệt<span [hidden]="reverse">▼</span
+                            ><span [hidden]="!reverse">▲</span>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let phieumuon of list | paginate
+                    : {
+                          id: 'phieummuon-pagin',
+                          itemsPerPage: pageSize,
+                          currentPage: pageNo,
+                          totalItems: total
+                      }"
+                    >
+                        <td>{{phieumuon.id}}</td>
+                        <td>{{phieumuon.ngayMuon | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{phieumuon.librarian.name}}</td>
+                        <td>{{phieumuon.reader.name}}</td>
+                        <td>{{phieumuon.updatedAt | date: 'dd/MM/yyyy'}}</td>
+                        <td>
+                            {{phieumuon.checked? 'Đã Duyệt' : 'Chưa Duyệt'}}
+                        </td>
+                        <td>
+                            <button
+                                (click)="navigateToEdit(phieumuon.id)"
+                                class="btn btn-primary me-2"
+                            >
+                                Sửa
+                            </button>
+                            <button class="btn btn-danger">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div *ngIf="!loading" class="row">
+        <div class="col">Hiển thị {{ numberOfResults }} phiếu</div>
+        <div class="col">
+            <pagination-controls
+                id="phieummuon-pagin"
+                (pageChange)="getPage($event)"
+            ></pagination-controls>
+        </div>
+    </div>
+</div>

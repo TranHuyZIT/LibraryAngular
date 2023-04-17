@@ -10,6 +10,8 @@ import { PhieuTraComponent } from './phieutra.component';
 import { PhieuTraRoutingModule } from './phieutra-router.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SelectComponent } from './select/select.component';
+import PhieuTraView from './view/PhieuTraView';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -23,14 +25,10 @@ import { SelectComponent } from './select/select.component';
         MatNativeDateModule,
         MatSelectModule,
         MatSelectModule,
-        NgxMatSelectSearchModule
-
+        NgxMatSelectSearchModule,
+        NgxPaginationModule,
     ],
-    exports: [
-        PhieuTraComponent, SelectComponent
-    ],
-    declarations: [
-        PhieuTraComponent, SelectComponent
-    ],
+    exports: [PhieuTraComponent, SelectComponent, PhieuTraView],
+    declarations: [PhieuTraComponent, SelectComponent, PhieuTraView],
 })
 export class PhieuTraModule {}

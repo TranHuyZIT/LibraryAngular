@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LogService } from 'src/app/core/services/log.service';
 
 @Component({
-    styleUrls: ['header.component.css'],
+    styleUrls: ['../navbar/header.component.css'],
     templateUrl: 'header.component.html',
-    selector: 'header-nav',
+    selector: 'header-admin-nav',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderAdminComponent implements OnInit {
     constructor(private logService: LogService) {}
     ngOnInit(): void {}
     getMorePage() {

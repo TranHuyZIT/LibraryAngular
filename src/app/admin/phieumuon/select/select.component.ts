@@ -10,13 +10,12 @@ import { BookItemService } from 'src/app/core/services/bookitem.service';
 export class SelectComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<SelectComponent>,
-        private bookItemService: BookItemService,
+        private bookItemService: BookItemService
     ) {}
     ngOnInit(): void {
         this.bookItemService.getAll().subscribe((response) => {
-                console.log(response);
-                this.options = response;
-            });
+            this.options = response.filter((e: any) => e.trangThai);
+        });
     }
     options: any[] = [];
     tinhTrangEnum = TinhTrangEnum;
