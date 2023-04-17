@@ -32,6 +32,7 @@ export class PhieuTraComponent implements OnInit {
     headShake: any;
     search: FormControl<string>;
     dialogRef: any;
+    currentLibrarian: any;
     constructor(
         private toasrtService: ToastrService,
         private phieutraservice: PhieuTraService,
@@ -54,13 +55,13 @@ export class PhieuTraComponent implements OnInit {
             next: (user) => {
                 this.librarianService.getOne(user.id).subscribe({
                     next: (data) => {
-                        this.librarianId = data.name;
+                        this.currentLibrarian = data;
                     },
                     error: (err) => {
                         this.toasrtService.error(err.message);
                     },
                 });
-                this.curentuser = user;
+                this.currentuser = user;
             },
         });
         this.search = new FormControl('');
@@ -81,6 +82,9 @@ export class PhieuTraComponent implements OnInit {
                         this.toasrtService.error(err.message);
                     },
                 });
+        });
+        this.authService.currentCustomer.subscribe((reader) => {
+            this.currentReader = reader;
         });
         // detail
     }
@@ -112,6 +116,8 @@ export class PhieuTraComponent implements OnInit {
     listReader: any[] = [];
     itemsToRequest: any[] = [];
     tinhTrangEnum = TinhTrangEnum;
+    currentuser: any;
+    currentReader: any;
 
     get formValues() {
         return this.form.value;
@@ -128,23 +134,33 @@ export class PhieuTraComponent implements OnInit {
             this.toasrtService.error('Vui lòng kiểm tra lại thông tin');
             return;
         }
-        this.phieutraservice
-            .add({
-                ...this.formValues,
+        const bodyRequest = {
+            ...this.formValues,
+                librarianId: this.currentLibrarian.id,
                 chitiets: this.itemsToRequest.map((e: any) => {
                     return {
                         tinhTrang: e.tinhTrang,
                         bookItemId: e.id,
                     };
                 }),
-            })
-            .subscribe({
-                next: (data) => {
+        }
+        this.phieutraservice.save(bodyRequest).subscribe({
+            next: (data) => {
                     this.toasrtService.success('Gửi phiếu trả thành công');
+                    this.resetPage();
                 },
-                error: (err) => {
+            error: (err) => {
                     this.toasrtService.error(err.message);
-                },
-            });
+                },    
+        })
+            
+            // .subscribe({
+            //     
+            //     
+            // });
+    }
+    resetPage() {
+        this.itemsToRequest = [];
+        this.ngOnInit();
     }
 }

@@ -21,5 +21,7 @@ export class PhieuTraService {
     delete(id: any){
         return this.apiService.delete(`/phieutra/${id}`);
     }
-    
+    save(body: any) {
+        return this.apiService.post('/phieutra', body);
+    }
 }
