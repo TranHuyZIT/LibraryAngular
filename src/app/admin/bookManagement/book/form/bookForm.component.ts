@@ -169,7 +169,7 @@ export class BookFormComponent implements OnInit {
 
     // table book items
     bookItemsTable: any[] = [];
-    borrowed = false;
+    borrowed = true;
     numberBorrowed = 0;
     status = 'VERY_GOOD';
     addBookItem() {
