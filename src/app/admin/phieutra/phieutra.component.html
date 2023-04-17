@@ -51,7 +51,7 @@
         <div class="col-6">
             <div class="form-group col-12">
                 <div class="row">
-                    <div class="input-group mb-3">
+                    <div *ngIf="!id" class="input-group mb-3">
                         <mat-form-field>
                             <mat-select
                                 formControlName="readerId"
@@ -74,12 +74,25 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="d-flex justify-content-left">
+                    <input
+                        *ngIf="id"
+                        class="form-control"
+                        [value]="currentReader.name"
+                    />
+                    <div class="d-flex justify-content-left mt-2">
                         <button
+                            *ngIf="!id"
                             (click)="save()"
                             class="btn btn-primary"
                         >
                             Gửi Phiếu Trả
+                        </button>
+                        <button
+                            *ngIf="id"
+                            (click)="check()"
+                            class="btn btn-primary"
+                        >
+                            Duyệt Phiếu Trả
                         </button>
                     </div>
                 </div>
@@ -178,6 +191,7 @@
                         <tr>
                             <td colspan="3">
                                 <button
+                                    *ngIf="!id"
                                     class="btn btn-primary"
                                     (click)="openSelectionDialog()"
                                 >
