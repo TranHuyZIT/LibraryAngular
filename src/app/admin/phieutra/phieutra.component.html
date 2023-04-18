@@ -7,7 +7,7 @@
         <h5>Tên thủ thư: {{ currentuser.name }}</h5>
         <div class="col-6 info-container">
             <div class="row">
-                <div class="form-group col col-6">
+                <div class="form-group col col-12">
                     <label>Ngày Trả</label>
                     <div class="input-group">
                         <input
@@ -49,10 +49,10 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="form-group col-12">
+            <div class="form-group">
                 <div class="row">
                     <div *ngIf="!id" class="input-group mb-3">
-                        <mat-form-field>
+                        <mat-form-field class="col">
                             <mat-select
                                 formControlName="readerId"
                                 placeholder="Độc giả"
@@ -79,7 +79,7 @@
                         class="form-control"
                         [value]="currentReader.name"
                     />
-                    <div class="d-flex justify-content-left mt-2">
+                    <div class="d-flex justify-content-center mt-2">
                         <button
                             *ngIf="!id"
                             (click)="save()"
