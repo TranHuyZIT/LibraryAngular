@@ -28,6 +28,9 @@
     width: 100px;
     background-color: var(--secondary);
 }
+.btn {
+    align-items: center;
+}
 .info-container {
     padding: 8px;
     border-right: 1px dashed #333;
@@ -51,10 +54,45 @@
 
 .updateForm {
     padding: 24px;
-    width: 50%;
+    width: 80%;
     border-radius: 5px;
 }
 
-.updateForm-total{
+.updateForm-total {
     width: 100% !important;
 }
+
+.table-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #ccc;
+}
+
+.table-container th {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.table-container tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+/* 
+.contact-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+} */

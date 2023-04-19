@@ -14,6 +14,7 @@ import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
 
+// <<<<<<< HEAD
 import { ReaderService } from './services/reader.service';
 
 import { CartService } from './services/cart.service';

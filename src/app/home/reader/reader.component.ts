@@ -11,6 +11,8 @@ import { headShake } from 'ng-animate';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ReaderService } from 'src/app/core/services/reader.service';
+import { BookService } from 'src/app/core/services/books.service';
+import { CommonModule } from '@angular/common';
 @Component({
     selector: 'reader-component',
     templateUrl: 'reader.component.html',
@@ -27,6 +29,7 @@ export class ReaderComponent implements OnInit {
         private formBuilder: FormBuilder,
         private toastrService: ToastrService,
         private readerService: ReaderService,
+        private bookService: BookService,
         private authService: AuthService
     ) {
         this.form = this.formBuilder.group({
@@ -39,7 +42,9 @@ export class ReaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.bookService;
         this.readerService;
+
         this.authService.currentUser.subscribe({
             next: (user) => {
                 this.readerService.getOne(user.id).subscribe({
@@ -58,8 +63,17 @@ export class ReaderComponent implements OnInit {
                 });
                 this.currentUser_temp = user;
 
-                console.log('user- On Init', user);
-                console.log('currrent User- On Init', this.currentUser_temp);
+                this.readerService.getOne(user.id).subscribe({
+                    next: (reader) => {
+                        this.bookService.getAllByReaderId(reader.id).subscribe({
+                            next: (borrowedData) => {
+                                for (let item of borrowedData) {
+                                    this.data2.push(item.book);
+                                }
+                            },
+                        });
+                    },
+                });
             },
         });
     }
@@ -81,7 +95,6 @@ export class ReaderComponent implements OnInit {
         //     this.toastrService.error('Vui lòng kiểm tra lại thông tin');
         //     return;
         // }
-        console.log('Dữ liệu user được đổ vào dữ liệu reader', this.form.value);
         this.readerService
             .update(this.currentUser_temp.id, { ...this.formValues })
             .subscribe({
@@ -92,8 +105,10 @@ export class ReaderComponent implements OnInit {
                     this.toastrService.error(err.message);
                 },
             });
-        console.log('DONE');
     }
 
     // TABLE FOR BORROWED BOOK
+
+    data2: any[] = [];
+    // data2: any;
 }
