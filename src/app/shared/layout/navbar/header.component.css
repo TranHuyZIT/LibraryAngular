@@ -9,7 +9,21 @@
     display: none;
     width: fit-content;
     width: 350px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 .message-container {
     min-width: fit-content;
+}
+
+.dropdown-item {
+    height: 50px;
+    align-items: center;
+}
+.load-more {
+    margin: auto;
+}
+#dropdownMenuButton {
+    font-size: 20px;
+    padding: 0;
 }

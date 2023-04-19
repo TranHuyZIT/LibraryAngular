@@ -13,8 +13,6 @@ import { RouterModule } from '@angular/router';
 import { CategoryService } from './services/category.service';
 import { BookService } from './services/books.service';
 import { ImageService } from './services/image.service';
-import { LibrarianService } from './services/librarian.service';
-import { PhieuMuonService } from './services/phieumuon.service';
 
 // <<<<<<< HEAD
 import { ReaderService } from './services/reader.service';
@@ -22,6 +20,8 @@ import { ReaderService } from './services/reader.service';
 import { CartService } from './services/cart.service';
 import { BookItemService } from './services/bookitem.service';
 import { PhieuTraService } from './services/phieutra.service';
+import { LibrarianService } from './services/librarian.service';
+import { PhieuMuonService } from './services/phieumuon.service';
 import { PhieuGiaHanService } from './services/phieugiahan.service';
 import { LogService } from './services/log.service';
 

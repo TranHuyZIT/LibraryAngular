@@ -1,42 +1,206 @@
-<header-nav></header-nav>
+<header-admin-nav></header-admin-nav>
 <div class="container-lg pm-margin-container shadow rounded" [formGroup]="form">
-    <div class="col-6 info-container">
-        <h5>Id thủ thư: {{ librarianId }}</h5>
-        <h5>Ngày mượn:</h5>
-        <div class="input-group">
-            <input type="text" class="form-control" />
-        </div>
-        <h5>Ghi chú:</h5>
-        <div class="input-group">
-            <textarea class="form-control"></textarea>
+    <div class="row">
+        <div class="header-info">
+            <h1>Phiếu Mượn</h1>
         </div>
     </div>
-
-    <p>aaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-</div>
-<!-- <header-nav></header-nav> -->
-
-<div class="container mx-auto mt-4 phieumuon-container">
     <div class="row">
-        <!-- <div class="col-md-4"> -->
-        <div
-            class="card"
-            style="width: 18rem"
-            *ngFor="let phieumuon of phieumuonList"
-        >
-            <!-- <img
-                    src="https://i.imgur.com/ZTkt4I5.jpg"
-                    class="card-img-top"
-                    alt="..."
-                /> -->
-            <div class="card-body">
-                <h5 class="card-title">{{ phieumuon.id }}</h5>
-                <p class="card-text">ID Reader: {{ phieumuon.reader.id }}</p>
-                <p class="card-text">Tên: {{ phieumuon.reader.name }}</p>
-                <p class="card-text">Note: {{ phieumuon.note }}</p>
-                <p class="card-text">Ngày mượn: {{ phieumuon.ngayMuon }}</p>
+        <div class="col-6 info-container">
+            <h5>Tên thủ thư: {{ currentuser.name }}</h5>
+            <div class="form-group">
+                <h5>Ngày mượn:</h5>
+                <div class="input-group">
+                    <input
+                        type="text"
+                        formControlName="ngayMuon"
+                        class="form-control"
+                        [ngClass]="{
+                            'is-invalid':
+                                submitted && formControls['ngayMuon'].errors
+                        }"
+                        matInput
+                        [matDatepicker]="picker"
+                        readonly
+                    />
+                    <mat-datepicker-toggle
+                        matIconSuffix
+                        [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <div
+                        *ngIf="submitted && formControls['ngayMuon'].errors"
+                        class="invalid-feedback"
+                    >
+                        <div *ngIf="formControls['ngayMuon'].errors">
+                            Ngày mượn không được trống
+                        </div>
+                    </div>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+            </div>
+            <div class="form-group">
+                <h5>Ghi Chú :</h5>
+                <div class="input-group">
+                    <textarea formControlName="note" class="form-control">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <h5>Tên độc giả:</h5>
+                <div class="row">
+                    <div class="input-group mb-3">
+                        <mat-form-field *ngIf="!id" class="col">
+                            <mat-select
+                                formControlName="readerId"
+                                placeholder="Độc giả"
+                                [value]="form.get('readerId')?.value"
+                            >
+                                <mat-option>
+                                    <ngx-mat-select-search
+                                        placeholderLabel="Tìm tên..."
+                                        [formControl]="search"
+                                    ></ngx-mat-select-search>
+                                </mat-option>
+
+                                <mat-option
+                                    *ngFor="let reader of listReader"
+                                    [value]="reader.id"
+                                >
+                                    {{ reader.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <input
+                            [value]="currentReader.name"
+                            *ngIf="id"
+                            class="form-control"
+                        />
+                    </div>
+                    <div class="col col-12 mt-2">
+                        <div class="d-flex justify-content-center">
+                            <button
+                                *ngIf="!id"
+                                (click)="save()"
+                                class="btn btn-primary"
+                            >
+                                Gửi Phiếu Mượn
+                            </button>
+                            <button
+                                *ngIf="id"
+                                (click)="check()"
+                                class="btn btn-primary"
+                            >
+                                Duyệt Phiếu Mượn
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="row header-info">
+                <h2>Chi Tiết Phiếu Mượn</h2>
+            </div>
+            <div class="table-responsive navbar-text phieumuon-container">
+                <table [formGroup]="detailForm" class="table phieutra-table">
+                    <thead>
+                        <tr>
+                            <td class=".text-center"><b>Sách</b></td>
+                            <td class=".text-center"><b>Tình trạng</b></td>
+                            <td class=".text-center"><b>Ngày trả</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of itemsToRequest">
+                            <td>
+                                <div class="book-container row">
+                                    <div class="col col-4">
+                                        <img
+                                            class="book-image"
+                                            [src]="item.book.image"
+                                        />
+                                    </div>
+                                    <div class="col col-8 book-info-container">
+                                        <h4>{{ item.book.ten }}</h4>
+                                        <h5>{{ item.book.tacGia }}</h5>
+                                        <p>{{ item.book.category.name }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="book-info-container">
+                                    <h4>ID: {{ item.id }}</h4>
+                                    <h5>
+                                        Tình Trạng:
+                                        {{ tinhTrangEnum[item.tinhTrang] }}
+                                    </h5>
+                                    <h5>
+                                        Số lần mượn:
+                                        {{ item.soLanMuon }}
+                                    </h5>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input
+                                        [formControlName]="item.id"
+                                        type="text"
+                                        class="form-control"
+                                        matInput
+                                        [matDatepicker]="picker"
+                                        readonly
+                                        [ngClass]="{
+                                            'is-invalid':
+                                                submitted &&
+                                                formControlsDetail[item.id]
+                                                    ?.errors
+                                        }"
+                                    />
+                                    <mat-datepicker-toggle
+                                        matIconSuffix
+                                        [for]="picker"
+                                    ></mat-datepicker-toggle>
+
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <div
+                                        *ngIf="
+                                            submitted &&
+                                            formControlsDetail[item.id]?.errors
+                                        "
+                                        class="invalid-feedback"
+                                    >
+                                        <div
+                                            [@headshake]="headshake"
+                                            *ngIf="
+                                                formControlsDetail[item.id]
+                                                    ?.errors['required']
+                                            "
+                                        >
+                                            Ngày mượn mới không được trống
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger">Xóa</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <button
+                                    *ngIf="!id"
+                                    (click)="openSelectionDialog()"
+                                    class="btn btn-primary"
+                                >
+                                    Thêm sách mượn
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <!-- </div> -->
 </div>

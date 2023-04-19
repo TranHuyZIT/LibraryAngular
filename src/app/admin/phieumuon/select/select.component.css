@@ -1,0 +1,22 @@
+.book-info-container h4 {
+    font-size: 18px;
+    font-weight: 300;
+    text-align: start;
+}
+.book-info-container h5 {
+    font-weight: 300;
+    text-align: start;
+    font-size: 16px;
+}
+.book-info-container p {
+    color: red;
+    margin: 0;
+    text-align: start;
+    font-style: italic;
+}
+.select-dialog-container {
+    width: 800px;
+    max-width: 100%;
+    overflow-y: auto;
+    height: 60vh;
+}

@@ -6,8 +6,10 @@ import { HttpParams } from '@angular/common/http';
 @Injectable()
 export class LogService {
     constructor(private apiService: ApiService, private router: Router) {}
-    getAll({ pageSize }) {
-        const params = new HttpParams().set('pageSize', pageSize || 15);
+    getAll({ pageSize, pageNo }) {
+        const params = new HttpParams()
+            .set('pageSize', pageSize || 15)
+            .set('pageNo', pageNo || 1);
         return this.apiService.get('/log', params);
     }
 }

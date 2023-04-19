@@ -78,7 +78,7 @@ const routes: Routes = [
                   loadChildren: () =>
                       import('./admin/phieutra/phieutra.module').then(
                           (m) => m.PhieuTraModule)
-            }
+            },
             {
                 path: 'phieumuon',
                 canActivate: [],
